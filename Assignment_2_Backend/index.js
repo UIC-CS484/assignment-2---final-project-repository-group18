@@ -25,15 +25,16 @@ var createUser = require("./router/createUser")
 var dashboard = require("./router/dashboard")
 var sessionsObj = require("express-session")
 var passport = require("passport")
+const cors = require("cors")
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cors())
 
 
 app.use(sessionsObj({
-    // TODO CHange the secret and save it in the config file
+    // TODO Change the secret and save it in the config file
     secret: "Secret",
     resave: false,
     saveUninitialized: true,
@@ -66,5 +67,3 @@ process.on('SIGINT', () => {
     });
   });
 
-
-//module.exports = app;

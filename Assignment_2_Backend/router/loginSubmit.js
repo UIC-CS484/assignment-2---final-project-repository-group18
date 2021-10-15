@@ -1,6 +1,7 @@
 const express = require('express')
 var router = express.Router()
 var passport = require("passport")
+var userController = require("../controller/userController")
 
 
 router.use((req, res, next)=>{
@@ -16,7 +17,13 @@ router.post('/',  passport.authenticate("local"), function(req, res, next) {
     // Send it to the react JS end
     //console.log("Authenticated")
     //res.send("Authenticated");
-    res.redirect("/dashboard")
+    //res.redirect("/dashboard")
+    userController.getUserInfo(req, res, function(err, data){
+        if (err != null){
+            res.send(err)
+        }
+        res.json(data)
+    })
 
 })
 
