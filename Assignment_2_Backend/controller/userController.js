@@ -106,6 +106,22 @@ module.exports = {
 
     deleteUser : (req, res, callback)=>{
         // Get the user ID and delete the user from the database 
+    },
+
+    getUserInfo : (req, res, callback)=>{
+        console.log("calling db opers")
+        dbOperations.findUserByUserTableId(req.user.userTableId, function(err, data){
+            if(err != null){
+                callback(err, null)
+            }
+            senderObj = {
+                "username" : data.username,
+                "emailId" : data.user_emailID,
+                "dob" : data.dob 
+            }
+          
+            callback(null, senderObj)
+        })
     }
 
 

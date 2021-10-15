@@ -1,13 +1,21 @@
 const express = require('express')
 var router = express.Router()
 var passport = require("passport")
+var userController = require("../controller/userController")
 
 router.post("/", function(req, res){
-    console.log(req.session)
+    //console.log(req.session)
     if (req.isAuthenticated()){
         // Console 
-        console.log("The user " + req.user.user_emailId+" is authorised to visit this")
-        res.send("User is authotised")
+      
+        // Call the controller method to fetch user information
+        userController.getUserInfo(req, res, function(err, data){
+            if (err != null){
+                res.send(err)
+            }
+            res.json(data)
+        })
+       // res.send("Something wrong happened")
     }
     else{
         console.log("You are not authorised")
@@ -18,9 +26,14 @@ router.post("/", function(req, res){
 router.get("/", function(req, res){
     console.log(req.session)
     if (req.isAuthenticated()){
-        // Console 
-        console.log("The user " + req.user.user_emailId+" is authorised to visit this")
-        res.send("User is authotised")
+        userController.getUserInfo(req, res, function(err, data){
+            if (err != null){
+                res.send(err)
+            }
+         
+            res.json(data)
+        })
+       // res.send("Something wrong happened")
     }
     else{
         console.log("You are not authorised")

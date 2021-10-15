@@ -82,7 +82,7 @@ function findUser(emailId, callbackfn){
 
 function findUserByUserTableId(userTableId, callbackfn){
     //console.log(userId)
-    sqlGetDataFromUser = "Select userTableId, user_emailId, password, salt from userDetails where userTableId = ?"
+    sqlGetDataFromUser = "Select username, userTableId, user_emailID, password, salt, dob from userDetails where userTableId = ?"
     queryData = [userTableId];
 
     db.get(sqlGetDataFromUser, queryData, (err, row) => {
@@ -91,6 +91,8 @@ function findUserByUserTableId(userTableId, callbackfn){
             //throw err;
             return callbackfn(err, null);
         }
+        console.log("row output")
+        console.log(row)
         return callbackfn(err, row);
     })
 
