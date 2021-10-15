@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  color: lightgrey;
+}
+
+.App-header {
+  background: rgb(65, 8, 102);
+  width: 90%;
+  /* height: 40px; */
+  margin: auto;
+}
+
+.App-header a {
+  color: aliceblue;
+}
