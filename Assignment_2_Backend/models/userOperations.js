@@ -1,5 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
-const passport = require('../controller/passport')
+const passport = require('../controller/passport');
+const { getUserInfo } = require('../controller/userController');
+const { get } = require('../router/loginSubmit');
 
 
 let db = new sqlite3.Database("./database/sampleDb.db", sqlite3.OPEN_READWRITE, (err) => {
@@ -17,7 +19,7 @@ passwordSalt = passport.genPassword(userObj.password)
 
 db.get("Select MAX(userTableId) as usertableId from userDetails", [], function(err, row){
     if (err != null){
-        callback(err, null)
+        return callback(err, null)
     }else{
         maxUserTableId = row.usertableId + 1 
         sqlInsertData = "Insert Into userDetails(username, userTableId, user_emailId, password, salt, dob) "
@@ -29,7 +31,7 @@ db.get("Select MAX(userTableId) as usertableId from userDetails", [], function(e
 
         db.run(sqlInsertData, queryData, function(err){
             if (err != null){
-                callback(err, null)
+                return callback(err, null)
             }
 
             console.log("Added User with Email Id"+ userObj.emailId)
@@ -98,27 +100,93 @@ function findUserByUserTableId(userTableId, callbackfn){
 
 }
 
+// Function to get User Details 
+function getUserData(userEmailId, callbackfn){
+
+    // TO DO - Add call the data about the favourite crypto too
+    sqlGetDataFromUser = "Select username, user_emailID, dob  from userDetails where user_emailID = ?"
+    queryData = [userEmailId];
+
+    db.get(sqlGetDataFromUser, queryData, (err, row) => {
+        if (err){
+            //console.log(err);
+            //throw err;
+            return callbackfn(err, null);
+        }
+        //console.log("row output")
+        //console.log(row)
+        return callbackfn(null, row);
+    })
+   
+}
+
 
 
 // Update details of the user
-function updateUserDetails(userObj, callbackfn){
-    sqlUpdateData = "Update userDetails"
-    sqlInsertData += "Set username = ? "
-    sqlInsertData += "Set user_emailId = ? "
-    sqlInsertData += "Set dob = ? "
+function updateUserDetails(userObj, operation, callbackfn){
 
-    queryData = [userObj.username, userObj.emailId, userObj.dob]
+   if (operation == "userDetails"){
+    sqlUpdateData = "Update userDetails"
+    sqlUpdateData += " Set username = ? ,"
+    sqlUpdateData += " user_emailId = ? ,"
+    sqlUpdateData += " dob = ? "
+    sqlUpdateData += " where user_emailId = ?"
+
+    queryData = [userObj.username, userObj.emailId, userObj.dob, userObj.emailId]
+
+    console.log(queryData)
 
     db.run(sqlUpdateData, queryData, function(err){
         if (err != null){
-            callbackfn(err, null)
+            return callbackfn(err, null)
         }
         if (this.changes >= 0){
-            callbackfn(null, true)
+            return callbackfn(null, true)
         }
     })
+   }
+   else if(operation == "password"){
+
+    // Hash the password again with a salt 
+
+    hashSalt = passport.genPassword(userObj.password)
+
+    sqlUpdateData = "Update userDetails"
+    sqlUpdateData += " Set password = ? ,"
+    sqlUpdateData += " salt = ? "
+    sqlUpdateData += "where user_emailId = ? "
+    
+    queryData = [hashSalt.hash, hashSalt.salt, userObj.emailId]
+
+    db.run(sqlUpdateData, queryData, function(err){
+        if (err != null){
+            return callbackfn(err, null)
+        }
+        if (this.changes >= 0){
+           return callbackfn(null, true)
+        }
+    })
+
+
+   }
+
 }
 
+
+//Function to delete a user from Database
+function deleteUser(emailId, callbackfn){
+    sqlDeleteQuery = "Delete from userDetails"
+    sqlDeleteQuery += " where userTableId = ?"
+
+    queryData = [emailId]
+
+    db.run(sqlDeleteQuery, queryData, function(err){
+        if(err){
+            return callbackfn(err, false)
+        }
+        return callbackfn(err, true)
+    })
+}
 
 // Function to change password
 // TO DO
@@ -131,3 +199,5 @@ exports.insertNewUser = insertNewUser
 exports.updateUserDetails = updateUserDetails
 exports.findUserByUserTableId = findUserByUserTableId
 exports.db = db
+exports.deleteUser = deleteUser
+exports.getUserData = getUserData

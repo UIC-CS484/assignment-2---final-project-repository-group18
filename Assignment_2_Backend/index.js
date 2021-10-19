@@ -12,7 +12,7 @@
 
 // Generic configuration
 const PORT = 1337
-const cookie_Max_Age_Time = 1000 * 60 * 10 // 10 Minutes
+const cookie_Max_Age_Time = 1000 * 60 * 10 * 10 // 10 Minutes
 
 
 const express = require("express");
@@ -23,6 +23,9 @@ var loginSubmit = require("./router/loginSubmit")
 var logoutRoute = require("./router/logout")
 var createUser = require("./router/createUser")
 var dashboard = require("./router/dashboard")
+var updateUser = require("./router/updateUser")
+var deleteUser = require("./router/deleteUser")
+var getUserProfileData = require("./router/getUserProfileData")
 var sessionsObj = require("express-session")
 var passport = require("passport")
 const cors = require("cors")
@@ -32,6 +35,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors())
 
+// TO DO
+// access-control-allow-credentials set to true 
 
 app.use(sessionsObj({
     // TODO Change the secret and save it in the config file
@@ -53,6 +58,9 @@ app.use("/login", loginSubmit)
 app.use("/logout", logoutRoute)
 app.use("/createUser", createUser)
 app.use("/dashboard", dashboard)
+app.use("/updateUser", updateUser)
+app.use("/deleteUser", deleteUser)
+app.use("/getUserProfileData", getUserProfileData)
 
 
 var server = app.listen(PORT, () => {console.log("Server started at ", PORT)})

@@ -32,7 +32,7 @@ module.exports = {
     createUser : (req, res, callback) => {
         helper.checkIfAllDetailsPresent(req, function(err, dataObj){
             if(err != null){
-                callback(err, null)
+                return callback(err, null)
             }
             dbOperations.checkUserId(dataObj.emailId, function(err, data){
                 if (err != null){
@@ -76,26 +76,27 @@ module.exports = {
 
         helper.checkIfAllDetailsPresent(req, function(err, dataObj){
             if (err != null){
-                callback(err, null)
+               return callback(err, null)
             }
             dbOperations.checkUserId(dataObj.emailId, function(err, data){
                 if (err != null){
-                    callback(err, null)
+                    return callback(err, null)
                 }
                 if (data != null){
                     if (data == false){
-                        
-                        dbOperations.updateUserDetails(dataObj, function(err, isSuccess){
+                        console.log("calling update user function inside controller")
+                        dbOperations.updateUserDetails(dataObj, "userDetails",function(err, isSuccess){
                             if(err != null){
-                                callback(err, null);
+                                return callback(err, null);
                             }
                             if (isSuccess){
                                 console.log("User Data successfully changed");
-                                callback(null, isSuccess)
+                                return callback(null, isSuccess)
                             }
                         })
                     }else if(data == true){
-                        return callback(null, "User Id is not correct")
+                        err = "User Email id is not correct"
+                        return callback(err, null)
                     }
                 }        
             })
@@ -104,15 +105,94 @@ module.exports = {
     },
     // End of update user function
 
-    deleteUser : (req, res, callback)=>{
-        // Get the user ID and delete the user from the database 
-    },
+    // Start of update user password details 
+    updateUserPassword : (req, res, callback)=>{
+        // Find out if the user Exists 
+        // Check if all fields are present so that u accidentally don't do any thing useless
+        
+        // Adding this step as in update user route , Password won't be transfered
+        if (req.body.password == null || req.body.password == ''){
+            err = "Password Field not set"
+            return callback(err, null)
+        }
+        passwordField = req.body.password
+        if (req.body.emailId == '' || req.body.emailId == ''){
+            err = "Email Id Field not set"
+            return callback(err, null)
+        }
+        emailIdField = req.body.emailId 
+        dbOperations.checkUserId(emailIdField, function(err, data){
+            if (err != null){
+                return callback(err, null)
+            }
+            if (data != null){
+                if (data == false){
+                    dataObj = {
+                        "password" : passwordField,
+                        "emailId" : emailIdField
+                    }
+                    dbOperations.updateUserDetails(dataObj, "password", function(err, isSuccess){
+                        if(err != null){
+                            return callback(err, null);
+                        }
+                        if (isSuccess){
+                            console.log("Password successfully changed");
+                            return callback(null, isSuccess)
+                        }
+                    })
+                }else if(data == true){
+                    err = "User Email id is not correct"
+                    return callback(err, null)
+                }
+            }        
+        })
 
+    },
+    // End of update user password function
+
+
+
+    //Start of Delete Function
+    deleteUser : (req, res, callback)=>{
+        // Get the user ID and delete the user from the database
+        // Req object will contain the email Id of the person 
+        // Search for the same in the user Details Table and get the userTableId 
+        if (req.body.emailId == "" || req.body.emailId == null){
+            err = "emailId not supplied for deleting the user"
+            return callback(err, null)
+        } 
+        emailIdForDeletion = req.body.emailId
+
+        // Check if the email Id exits in the the Db 
+        dbOperations.findUser(emailId, function(err, data){
+            if(err != null){
+                return callback(err, null)
+            }
+
+            // Once u get the data 
+            if (data != "" && data != null){
+                dbOperations.deleteUser(data.userTableId, function(err, data){
+                    if(err){
+                        return callback(err, null)
+                    }
+                    
+                    return callback(null, data)
+
+                })
+            }else{
+                err = "User email Id not found in the data base"
+                return callback(err, null)
+            }
+        })
+    },
+    // End of delete Function
+
+    //Start of get user function
     getUserInfo : (req, res, callback)=>{
         console.log("calling db opers")
         dbOperations.findUserByUserTableId(req.user.userTableId, function(err, data){
             if(err != null){
-                callback(err, null)
+                return callback(err, null)
             }
             senderObj = {
                 "username" : data.username,
@@ -120,9 +200,44 @@ module.exports = {
                 "dob" : data.dob 
             }
           
-            callback(null, senderObj)
+            return callback(null, senderObj)
+        })
+    },
+    // End of delete user function
+
+    // Function to get User Profile data
+    getUserProfileData : (req, res, callback) =>{
+        // Check if the user exists from the email ID 
+        if (req.body.emailId == "" || req.body.emailId == null){
+            err = "Email Id not supplied"
+            return callback(err, null)
+        }
+        emailIdField = req.body.emailId
+
+        dbOperations.checkUserId(emailIdField, function(err, data){
+            if(err){
+                return callback(err, null)
+            }
+
+            if (data != null){
+                if (data == false){
+                    dbOperations.getUserData(emailIdField, function(err, data){
+                        if(err != null){
+                            return callback(err, null);
+                        }
+                        
+                        return callback(null, data)
+                    })
+                }else if(data == true){
+                    err = "User Email id is not correct"
+                    return callback(err, null)
+                }
+            } 
+
+            
         })
     }
+
 
 
 };

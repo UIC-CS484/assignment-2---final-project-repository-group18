@@ -15,9 +15,7 @@ router.post('/',  passport.authenticate("local"), function(req, res, next) {
 
     // Now that the user is logged in fetch the users favourite list 
     // Send it to the react JS end
-    //console.log("Authenticated")
-    //res.send("Authenticated");
-    //res.redirect("/dashboard")
+    //console.log(req.headers)
     userController.getUserInfo(req, res, function(err, data){
         if (err != null){
             res.send(err)
