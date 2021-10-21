@@ -73,5 +73,5 @@ process.on('SIGINT', () => {
       console.log("Closing database connection")
       dbOperations.db.close()
     });
-  });
+});
 

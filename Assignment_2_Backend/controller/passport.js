@@ -4,10 +4,8 @@ var LocalStrategy = require("passport-local").Strategy;
 var dbOperations = require("../models/userOperations")
 
 function passportInit(){
-    //console.log("Passport Strategy Implemented");
     passport.use(
         new LocalStrategy( {usernameField : "emailId", passwordField : "password"},function (username, password, done) {
-            //console.log(emailId)
             emailId = username
             dbOperations.findUser(emailId, function(err, data){
                 if (err != null){
