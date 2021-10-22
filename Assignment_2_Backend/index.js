@@ -35,7 +35,16 @@ const cors = require("cors")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors())
+//app.use(cors())
+
+// Development Phase
+app.use(
+  cors({
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: ["http://localhost:3000"],
+  })
+); 
 
 // TO DO
 // access-control-allow-credentials set to true 
