@@ -18,8 +18,9 @@ router.post('/',  passport.authenticate("local"), function(req, res, next) {
     //console.log(req.headers)
     userController.getUserInfo(req, res, function(err, data){
         if (err != null){
-            res.send(err)
+            res.json({"message" : data})
         }
+        dataObj = {"message" : data}
         res.json(data)
     })
 

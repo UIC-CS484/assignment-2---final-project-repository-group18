@@ -4,6 +4,7 @@
 //Logout
 //CreateUser
 //DeleteUser
+//GetUserData
 //Update
 //CatchUserFavourites
 //UpdateUserFavourites
@@ -12,7 +13,8 @@
 
 // Generic configuration
 const PORT = 1337
-const cookie_Max_Age_Time = 1000 * 60 * 10 * 10 // 10 Minutes
+const cookie_Max_Age_Time = 1000 * 60 * 10 // 10 Minutes
+const MINPASSWORDLENGTH = 8
 
 
 const express = require("express");
@@ -73,5 +75,7 @@ process.on('SIGINT', () => {
       console.log("Closing database connection")
       dbOperations.db.close()
     });
-  });
+});
 
+
+exports.MINPASSWORDLENGTH = MINPASSWORDLENGTH

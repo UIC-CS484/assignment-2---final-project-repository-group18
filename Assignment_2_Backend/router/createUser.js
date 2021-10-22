@@ -7,11 +7,14 @@ router.post("/", function(req, res){
     // Call controller of the method
     userController.createUser(req, res, function(err, data){
         if (err != null){
-            console.log(err)
-            res.send(err)
+            //console.log(err)
+
+            res.json({"message" : err})
         }
         if (data != null){
-            res.send(data)
+            dataObj = {"message" : data}
+            res.json(dataObj)
+           // res.send(data)
         }
        //res.send("Some problem")
     })
