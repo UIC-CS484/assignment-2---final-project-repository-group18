@@ -1,3 +1,5 @@
+// TESTS IN PROCESS. NOT TO BE CONSIDERED FOR ASSIGNMENT 2
+
 dbOperations = require("../models/userOperations")
 
 describe("Tests for user CRUD operatiosn ", ()=>{
