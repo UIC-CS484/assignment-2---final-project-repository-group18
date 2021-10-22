@@ -1,44 +1,49 @@
-const express = require('express')
-var router = express.Router()
-var passport = require("passport")
-var userController = require("../controller/userController")
+const express = require("express");
+var router = express.Router();
+var passport = require("passport");
+var userController = require("../controller/userController");
 
-router.post("/", function(req, res){
-    //console.log(req.session)
-    if (req.isAuthenticated()){
-        // Console 
-      
-        // Call the controller method to fetch user information
-        userController.getUserInfo(req, res, function(err, data){
-            if (err != null){
-                res.send(err)
-            }
-            res.json(data)
-        })
-       // res.send("Something wrong happened")
-    }
-    else{
-        console.log("You are not authorised")
-        res.send("User is not authotised")
-    }
-})
+router.use((req, res, next) => {
+  console.log(req.headers.cookie);
+  // console.log(req.sessionID);
+  // console.log(req.session);
+  next();
+});
 
-router.get("/", function(req, res){
-    console.log(req.session)
-    if (req.isAuthenticated()){
-        userController.getUserInfo(req, res, function(err, data){
-            if (err != null){
-                res.send(err)
-            }
-         
-            res.json(data)
-        })
-       // res.send("Something wrong happened")
-    }
-    else{
-        console.log("You are not authorised")
-        res.send("User is not authotised")
-    }
-})
+router.post("/", function (req, res) {
+  //console.log(req.session)
+  if (req.isAuthenticated()) {
+    // Console
+
+    // Call the controller method to fetch user information
+    userController.getUserInfo(req, res, function (err, data) {
+      if (err != null) {
+        res.send(err);
+      }
+      res.json(data);
+    });
+    // res.send("Something wrong happened")
+  } else {
+    console.log("You are not authorised");
+    res.send("User is not authotised");
+  }
+});
+
+router.get("/", function (req, res) {
+  console.log(req.session);
+  if (req.isAuthenticated()) {
+    userController.getUserInfo(req, res, function (err, data) {
+      if (err != null) {
+        res.send(err);
+      }
+
+      res.json(data);
+    });
+    // res.send("Something wrong happened")
+  } else {
+    console.log("You are not authorised");
+    res.send("User is not authotised");
+  }
+});
 
 module.exports = router;

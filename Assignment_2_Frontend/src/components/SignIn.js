@@ -1,20 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import axios from "../axios";
+import { useStateProvider } from "../context/StateProvider";
 
 const SignIn = () => {
+  const [{ user }, dispatch] = useStateProvider();
+  const history = useHistory();
   const theme = createTheme({
     palette: {
       mode: "dark",
@@ -35,9 +30,16 @@ const SignIn = () => {
       })
       .then(function (response) {
         console.log(response);
+        dispatch({
+          type: "SET_USER",
+          user: response.data.message,
+        });
+        history.push("/dashboard");
+        // console.log(response.headers.get("set-cookie"));
+        // axios.post("/dashboard").then((response) => console.log(response));
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
