@@ -9,11 +9,11 @@ router.post("/", function(req, res){
         if (err != null){
             //console.log(err)
 
-            res.json({"message" : data})
+            res.json({"message" : err})
         }
         if (data != null){
             dataObj = {"message" : data}
-            res.json(data)
+            res.json(dataObj)
            // res.send(data)
         }
        //res.send("Some problem")

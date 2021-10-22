@@ -1,3 +1,5 @@
+const PASSWORDLENGTH = 8 // TODO Change the password Length from hardcoded to taken from config file
+
 
 function checkIfAllDetailsPresent(req, callback){
     // if (req.body.userId == null || req.body.userId == ''){
@@ -39,4 +41,13 @@ function checkIfAllDetailsPresent(req, callback){
     callback(null, dataObj)
 }
 
+function checkPasswordLength(data){
+    if(data.password.length < PASSWORDLENGTH){
+        return false
+    }
+
+    return true
+}
+
 exports.checkIfAllDetailsPresent = checkIfAllDetailsPresent
+exports.checkPasswordLength = checkPasswordLength

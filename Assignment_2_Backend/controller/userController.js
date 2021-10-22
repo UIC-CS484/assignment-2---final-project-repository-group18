@@ -34,6 +34,12 @@ module.exports = {
             if(err != null){
                 return callback(err, null)
             }
+            
+            if(!helper.checkPasswordLength(dataObj)){
+                err = "Password Length less than 8"
+                return callback(err, null)
+            }
+
             dbOperations.checkUserId(dataObj.emailId, function(err, data){
                 if (err != null){
                     return callback(err, null)
@@ -41,7 +47,7 @@ module.exports = {
                 if (data != null){
                     if (data == false){
                         //console.log("User Id is not unique")
-                        return callback(null, "User Email Id Already Exists")
+                        return callback("User Email Id Already Exists", null)
                     }else if(data == true){
                        // Check for the password policy 
                        // Then call the db function to insert the user credentials
