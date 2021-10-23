@@ -68,8 +68,8 @@ The project is divided into 3 parts,
 
 Frontend is made in React JS and backend in NodeJS ( with Express.js ) .Both frontend and backend server need to be started. Before starting both frontend and backend servers please install the appropriate dependencies.
 
-Dependencies for Backend - NodeJS, npm and packages inside the package.json file
-Dependencies for Frontend - ReactJS, React Context API, MaterialUI
+1. Dependencies for Backend - NodeJS, npm and packages inside the package.json file
+2. Dependencies for Frontend - ReactJS, React Context API, MaterialUI
 
 Tools and IDEs - Visual Studio Code, Postman, SQLiteStudio
 
