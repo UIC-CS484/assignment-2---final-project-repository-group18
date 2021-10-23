@@ -1,34 +1,48 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box } from "@mui/system";
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
+import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
-import { useStateProvider } from "../context/StateProvider";
 import axios from "../axios";
+import "./styles.css";
+import { myContext } from "../context/Context";
 
-const Navbar = () => {
-  const [{ user }, dispatch] = useStateProvider();
+const Navbar = ({ auth }) => {
+  const user = useContext(myContext);
   console.log(user);
-  const logout = () => {
-    axios
+  // const [{ user }, dispatch] = useStateProvider();
+  const [data, setData] = useState(auth);
+  // console.log(auth, user);
+
+  const logout = async () => {
+    await axios
       .post("/logout", {})
       .then((response) => {
-        dispatch({
-          type: "SET_USER",
-          user: null,
-        });
+        // dispatch({
+        //   type: "SET_USER",
+        //   user: null,
+        // });
         console.log(response);
+        if (response.status == 200) window.location.href = "/";
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  // Styles
+  const linkStyle = {
+    textDecoration: "none",
+    fontWeight: "600",
+    color: "white",
+  };
   return (
-    <div>
+    <div className="navbar">
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
+            {/* <IconButton
               size="large"
               edge="start"
               color="inherit"
@@ -36,22 +50,30 @@ const Navbar = () => {
               sx={{ mr: 2 }}
             >
               <MenuIcon />
-            </IconButton>
-            <Button color="inherit">
-              <Link to="/">Home</Link>
+            </IconButton> */}
+            <Button variant="outlined" color="inherit">
+              <Link to="/" style={linkStyle}>
+                Home
+              </Link>
             </Button>
-            <Button color="inherit">Test</Button>
+            {/* <Button color="inherit">Test</Button> */}
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Navbar
+              Cryptobase
             </Typography>
             {!user ? (
-              <div>
-                <Button color="inherit">
-                  <Link to="/signin">Sign In</Link>
-                </Button>
-                <Button color="inherit">
-                  <Link to="/signup">Sign Up</Link>
-                </Button>
+              <div className="nav_buttons">
+                <Stack direction="row" spacing={2}>
+                  <Button variant="outlined" color="inherit">
+                    <Link to="/signin" style={linkStyle}>
+                      Sign In
+                    </Link>
+                  </Button>
+                  <Button variant="outlined" color="inherit">
+                    <Link to="/signup" style={linkStyle}>
+                      Sign Up
+                    </Link>
+                  </Button>
+                </Stack>
               </div>
             ) : (
               <h3>
@@ -63,8 +85,8 @@ const Navbar = () => {
               </h3>
             )}
             {user ? (
-              <Button color="inherit">
-                <Link to="/" onClick={logout}>
+              <Button variant="outlined" color="inherit">
+                <Link to="/" onClick={logout} style={linkStyle}>
                   Log out
                 </Link>
               </Button>
