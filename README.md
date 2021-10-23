@@ -10,6 +10,7 @@ Akshat Wagadre, Olatungi Busari, Tejas Rajopadhye
 
 ```
 $ cd Assignment_2_Backend
+$ npm i
 $ npm start
 
 ```
@@ -43,7 +44,7 @@ $ npm run test
 
 2. Erroneuos Usage - This test verifies the functionality of password lenght checker in case the password lenght is < 8 . This test is named as "Negative Test case for Incorrect Input" . Here password with length = 4 is passed and checked if the function returns 'false' which indicates the correctness of this test
 
-These two test cases cover the complete set of functionalities for "checkPasswordLength" function (defined inside ./helper/helperFunctions.js) 
+These two test cases cover the complete set of functionalities for "checkPasswordLength" function (defined inside " ./helper/helperFunctions.js ") 
 
 ### Plan Ahead
 
@@ -62,7 +63,22 @@ The project is divided into 3 parts,
 2. Backend - in the folder Assignment_2_Backend
 3. Database - in the folder Assignment_2_Database
 
-Frontend is made in React JS and backend in NodeJS ( with Express.js).Both frontend and backend server need to be started. Before starting both frontend and backend servers please install the appropriate dependencies. 
+Frontend is made in React JS and backend in NodeJS ( with Express.js ) .Both frontend and backend server need to be started. Before starting both frontend and backend servers please install the appropriate dependencies. 
+
+Dependencies for Backend - NodeJS , npm and packages inside the package.json file
+Dependencies for Frontend - ...
+
+Tools and IDEs - Visual Studio Code, Postman, SQLiteStudio 
+
+
+## Storage of User Details
+
+Whenever a new user is created, its details (username, emailID, date of birth, password) is stored in the SQLite based database which is located in "Assignment_2_Backend/database/sampleDb.db". Passwords are hashed with a salt and the hash along with the salt is stored in the database. 
+
+Other tables in the database are not yet used and are provided to show the scope of the project
+
+The database can be accessed from the CLI provided by SQLite or with a user friendly software called SQLite Studio 
+
 
 
 
