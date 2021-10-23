@@ -10,6 +10,7 @@ Akshat Wagadre, Olatungi Busari, Tejas Rajopadhye
 
 ```
 $ cd Assignment_2_Backend
+$ npm i
 $ npm start
 
 ```
