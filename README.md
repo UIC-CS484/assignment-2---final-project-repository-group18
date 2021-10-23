@@ -15,7 +15,7 @@ $ npm start
 
 ```
 
-## Starting the frontend Server
+## Starting the Frontend Server
 
 ```
 $ cd Assignment_2_Frontend
