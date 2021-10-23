@@ -5,10 +5,8 @@ import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Button, Grid } from "@mui/material";
 import axios from "../axios";
-import { useStateProvider } from "../context/StateProvider";
 
 const SignIn = () => {
-  const [{ user }, dispatch] = useStateProvider();
   const history = useHistory();
   const theme = createTheme({
     palette: {
@@ -19,10 +17,6 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // console.log({
-    //   emailId: data.get("email"),
-    //   password: data.get("password"),
-    // });
     axios
       .post("/login", {
         emailId: data.get("email"),
@@ -30,13 +24,8 @@ const SignIn = () => {
       })
       .then(function (response) {
         console.log(response);
-        dispatch({
-          type: "SET_USER",
-          user: response.data.message,
-        });
-        history.push("/dashboard");
-        // console.log(response.headers.get("set-cookie"));
-        // axios.post("/dashboard").then((response) => console.log(response));
+        // history.push("/dashboard");
+        window.location.href = "/dashboard";
       })
       .catch(function (error) {
         console.log(error.response);

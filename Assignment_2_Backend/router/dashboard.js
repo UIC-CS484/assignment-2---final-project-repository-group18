@@ -24,8 +24,9 @@ router.post("/", function (req, res) {
     });
     // res.send("Something wrong happened")
   } else {
+    res.status(511);
     console.log("You are not authorised");
-    res.send("User is not authotised");
+    res.send("User is not authorised");
   }
 });
 
