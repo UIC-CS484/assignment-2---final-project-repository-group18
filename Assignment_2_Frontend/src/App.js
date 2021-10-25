@@ -25,8 +25,6 @@ function App() {
     };
   }, []);
 
-  // console.log(user);
-
   const onLoad = async () => {
     console.log("called onload on reload");
     await axios

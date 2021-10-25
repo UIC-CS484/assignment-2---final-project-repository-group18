@@ -1,0 +1,122 @@
+import React, { useContext } from "react";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import { useHistory } from "react-router";
+import { myContext } from "../context/Context";
+import axios from "../axios";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    [theme.breakpoints.down("xs")]: {
+      flexGrow: 1,
+    },
+  },
+  headerOptions: {
+    display: "flex",
+    flex: 1,
+    justifyContent: "space-evenly",
+  },
+}));
+
+const MobileNav = () => {
+  const user = useContext(myContext);
+  const history = useHistory();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const classes = useStyles();
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClick = (pageURL) => {
+    history.push(pageURL);
+    setAnchorEl(null);
+  };
+
+  const handleButtonClick = (pageURL) => {
+    history.push(pageURL);
+  };
+
+  const menuItems = [
+    {
+      menuTitle: "Home",
+      pageURL: "/",
+    },
+    {
+      menuTitle: "Sign In",
+      pageURL: "/signin",
+    },
+    {
+      menuTitle: "Sign Up",
+      pageURL: "/signup",
+    },
+  ];
+
+  const logout = async () => {
+    await axios
+      .post("/logout", {})
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) window.location.href = "/";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <div>
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+        color="inherit"
+        aria-label="menu"
+        onClick={handleMenu}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={open}
+        onClose={() => setAnchorEl(null)}
+      >
+        {user ? (
+          <>
+            <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
+            <MenuItem onClick={() => logout()}>Log Out</MenuItem>
+          </>
+        ) : (
+          menuItems.map((menuItem) => {
+            const { menuTitle, pageURL } = menuItem;
+            return (
+              <MenuItem onClick={() => handleMenuClick(pageURL)}>
+                {menuTitle}
+              </MenuItem>
+            );
+          })
+        )}
+      </Menu>
+    </div>
+  );
+};
+
+export default MobileNav;

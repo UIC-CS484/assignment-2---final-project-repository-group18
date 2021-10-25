@@ -19,7 +19,7 @@ const ContextProvider = ({ reducer, initialState, children }) => {
         setUser(res.data);
       })
       .catch((err) => {
-        console.log(err.response.message);
+        console.log(err.response);
         setUser(null);
       });
   }, []);
