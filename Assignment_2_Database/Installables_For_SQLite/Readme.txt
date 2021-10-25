@@ -1,0 +1,1 @@
+Paste the "sqlite" folder in C:\
