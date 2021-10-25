@@ -1,20 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import axios from "../axios";
 
 const SignIn = () => {
+  const history = useHistory();
   const theme = createTheme({
     palette: {
       mode: "dark",
@@ -24,10 +17,6 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // console.log({
-    //   emailId: data.get("email"),
-    //   password: data.get("password"),
-    // });
     axios
       .post("/login", {
         emailId: data.get("email"),
@@ -35,9 +24,11 @@ const SignIn = () => {
       })
       .then(function (response) {
         console.log(response);
+        // history.push("/dashboard");
+        window.location.href = "/dashboard";
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
