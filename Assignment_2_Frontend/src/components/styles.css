@@ -1,10 +1,10 @@
 .nav_buttons {
   display: flex;
 }
-
+/* 
 .navbar h3 {
   margin-right: 5px;
-}
+} */
 
 .dashboard {
   /* width: 90%; */
@@ -13,4 +13,9 @@
 .dashboard_newsBlocks {
   display: flex;
   justify-content: center;
+}
+
+.mobileNav {
+  width: 100%;
+  text-align: left;
 }

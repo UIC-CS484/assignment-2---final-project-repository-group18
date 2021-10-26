@@ -7,6 +7,10 @@ import IconButton from "@material-ui/core/IconButton";
 import { useHistory } from "react-router";
 import { myContext } from "../context/Context";
 import axios from "../axios";
+import "./styles.css";
+import { AppBar } from "@material-ui/core";
+import { Box } from "@mui/system";
+import { Toolbar, Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +37,7 @@ const MobileNav = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -74,16 +79,35 @@ const MobileNav = () => {
   };
 
   return (
-    <div>
-      <IconButton
-        edge="start"
-        className={classes.menuButton}
-        color="inherit"
-        aria-label="menu"
-        onClick={handleMenu}
-      >
-        <MenuIcon />
-      </IconButton>
+    <div className="mobileNav">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={handleMenu}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+              Cryptobase
+            </Typography>
+            {user ? (
+              <h3>
+                {`Hi ${
+                  user?.username.split(" ")[0].charAt(0).toUpperCase() +
+                  user?.username.split(" ")[0].slice(1)
+                }!
+                `}
+              </h3>
+            ) : null}
+          </Toolbar>
+        </AppBar>
+      </Box>
+
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
