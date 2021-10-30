@@ -1,15 +1,26 @@
 // Create a express server and point things to all the routes that we ought to take
 //Initial Basic Routes
+///// User Action Related
 //Login
 //Logout
 //CreateUser
 //DeleteUser
 //GetUserData
-//Update
-//CatchUserFavourites
-//UpdateUserFavourites
-//DeleteUserFavouriteList
-//Analytics Data
+//UpdateUserData
+////// Application Specific
+/// cryptoUserConfigController
+//SetFavourites
+//GetFavourites
+/// cryptoUserCommentLikeController
+//SetCommentsForNewsURL
+//GetCommentsForNewsURL
+//AddLiketoNewsURL
+/// staticDataController
+//SendListOfAllCryptos
+//getCryptoDetailsByName
+
+/// News Population Controller
+//GetNewsForCryptoTickers
 
 // Generic configuration
 const PORT = 1337;
@@ -24,7 +35,9 @@ const cors = require("cors");
 var sessionStore = require("connect-sqlite3")(sessionsObj)
 //const conn = 
 // user Defined
-const dbOperations = require("./models/userOperations");
+const dbObject = require("./models/sqlconnection");
+
+// User Details Specific imports
 const loginSubmit = require("./router/loginSubmit");
 const logoutRoute = require("./router/logout");
 const createUser = require("./router/createUser");
@@ -33,6 +46,10 @@ const updateUser = require("./router/updateUser");
 const deleteUser = require("./router/deleteUser");
 const getUserProfileData = require("./router/getUserProfileData");
 
+// Applications specific 
+const cryptoUserDetails = require("./router/cryptoFavourites")
+const crytoDataDetails = require("./router/getCryptoList")
+const userCommentLike = require("./router/commentLike")
 
 
 app.use(express.json());
@@ -76,6 +93,11 @@ app.use("/updateUser", updateUser);
 app.use("/deleteUser", deleteUser);
 app.use("/getUserProfileData", getUserProfileData);
 
+//Application specific routes
+app.use("/cryptoUserDetails", cryptoUserDetails);
+app.use("/cryptoDataDetails", crytoDataDetails);
+app.use("/userCommentLike", userCommentLike)
+
 var server = app.listen(PORT, () => {
   console.log("Server started at ", PORT);
 });
@@ -86,7 +108,7 @@ process.on("SIGINT", () => {
   server.close(() => {
     console.log("Http server closed.");
     console.log("Closing database connection");
-    dbOperations.db.close();
+    dbObject.db.close();
   });
 });
 

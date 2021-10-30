@@ -4,8 +4,8 @@ var passport = require("passport");
 var userController = require("../controller/userController");
 
 router.use((req, res, next) => {
-  // console.log(req.sessionID)
-  // console.log(req.session)
+  console.log(req.sessionID)
+  console.log(req.user)
   next();
 });
 

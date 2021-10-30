@@ -12,6 +12,9 @@ function checkIfAllDetailsPresent(req, callback){
         callback(err, null)   
     }
     emailId = req.body.emailId
+    // Check if email Id is in correct form
+    // Trim the white space 
+    emailId = emailId.trim()
     if (req.body.username == null || req.body.username == ''){
         err = "User Name is empty"
         callback(err, null)
