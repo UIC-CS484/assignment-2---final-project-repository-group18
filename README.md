@@ -23,6 +23,13 @@ $ npm i
 $ npm start
 
 ```
+### While installing dependencies for frontend , if you get any issues that are specific to OS, system architecture, please run the below commands,
+```
+$ cd Assignment_2_Frontend
+$ npm i -f
+$ npm start
+
+```
 
 ## Guide to accessing web application
 
