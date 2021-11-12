@@ -1,6 +1,5 @@
 # CryptoBase
 
-## Assignment 2
 
 ## Team
 
@@ -87,3 +86,7 @@ Whenever a new user is created, its details (username, emailID, date of birth, p
 Other tables in the database are not yet used and are provided to show the scope of the project
 
 The database can be accessed from the CLI provided by SQLite or with a user friendly software called SQLite Studio
+
+## ERD Diagram 
+
+<img src="./ERD_Diag.jpeg" >
