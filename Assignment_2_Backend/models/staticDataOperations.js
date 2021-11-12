@@ -1,6 +1,6 @@
 const db = require("../models/sqlconnection").db
 
-function getCryptoList(callbackfn){
+function getDBCryptoList(callbackfn){
 
     sqlGetCrytpData = "Select ticker, cryptoName from CryptoCurrencies"
 
@@ -27,5 +27,6 @@ function getCryptoByName(ticker, callbackfn){
     })
 }
 
-exports.getCryptoList = getCryptoList
-exports.getCryptoByName = getCryptoByName
+module.exports = {getDBCryptoList, getCryptoByName}
+//exports.getDBCryptoList = getDBCryptoList
+//exports.getCryptoByName = getCryptoByName

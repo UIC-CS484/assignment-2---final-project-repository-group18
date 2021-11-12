@@ -1,4 +1,4 @@
-dbOperations = require("../models/cryptoUserOperations")
+const dbOperations = require("../models/cryptoUserOperations")
 
 function getFavouritesForUser(req, res, callback){
     // Call the dboperations for the user
