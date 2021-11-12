@@ -89,4 +89,4 @@ The database can be accessed from the CLI provided by SQLite or with a user frie
 
 ## ERD Diagram 
 
-<img src="./ERD_Diag.jpeg" >
+<img src="ERD_Diag.jpg" >
