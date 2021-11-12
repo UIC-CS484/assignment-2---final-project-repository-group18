@@ -3,6 +3,7 @@ const helperFunctions = require("../helper/helperFunction")
 const inputPasswordPos = { "password" : "Password@123"}
 const inputPasswordNeg = { "password" : "Pass"}
 
+
 describe("Test for Passwords in the application" , ()=>{
 
     // Unit test case with correct password length
@@ -18,5 +19,6 @@ describe("Test for Passwords in the application" , ()=>{
 
         expect(isPasswordStrengthOkay).toBe(false)
     })
+
 
 })

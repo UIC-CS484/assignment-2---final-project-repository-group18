@@ -39,14 +39,14 @@ function insertNewUser(userObj, callback) {
           passwordSalt.salt,
           userObj.dob,
         ];
-        console.log(queryData);
+        //console.log(queryData);
 
         db.run(sqlInsertData, queryData, function (err) {
           if (err != null) {
             return callback(err, null);
           }
 
-          console.log("Added User with Email Id" + userObj.emailId);
+          //console.log("Added User with Email Id" + userObj.emailId);
           return callback(null, true);
         });
       }
@@ -144,7 +144,7 @@ function updateUserDetails(userObj, operation, callbackfn) {
       userObj.emailId,
     ];
 
-    console.log(queryData);
+    //console.log(queryData);
 
     db.run(sqlUpdateData, queryData, function (err) {
       if (err != null) {
