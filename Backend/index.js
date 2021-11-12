@@ -52,6 +52,7 @@ var sessionsDb = "sessions"
 PORT = process.env.port == "" || process.env.port == null ? PORT : process.env.port
 cookie_Max_Age_Time = process.env.cookieMaxAge == "" || process.env.cookieMaxAge == null ? cookie_Max_Age_Time : process.env.cookieMaxAge
 //console.log(cookie_Max_Age_Time)
+cookie_Max_Age_Time = parseInt(cookie_Max_Age_Time)
 MINPASSWORDLENGTH = process.env.minPasswordLength == "" || process.env.minPasswordLength == null ? MINPASSWORDLENGTH : process.env.minPasswordLength
 sessionSecretKey = process.env.secret == "" ||  process.env.secret == null ? sessionSecretKey : process.env.secret
 sessionsDb = process.env.sessionsDb == "" || process.env.sessionsDb == null ? sessionsDb : process.env.sessionsDb
