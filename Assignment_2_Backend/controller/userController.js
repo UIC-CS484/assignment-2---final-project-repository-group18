@@ -122,6 +122,11 @@ module.exports = {
             return callback(err, null)
         }
         passwordField = req.body.password
+
+        if(helper.checkPasswordLength({password: passwordField}) == false){
+            return callback("Password Length Less than 8", null)
+        }
+
         if (req.body.emailId == '' || req.body.emailId == ''){
             err = "Email Id Field not set"
             return callback(err, null)
@@ -170,13 +175,14 @@ module.exports = {
         emailIdForDeletion = req.body.emailId
 
         // Check if the email Id exits in the the Db 
-        dbOperations.findUser(emailId, function(err, data){
+        dbOperations.findUser(emailIdForDeletion, function(err, data){
             if(err != null){
                 return callback(err, null)
             }
 
             // Once u get the data 
             if (data != "" && data != null){
+                req.logout()
                 dbOperations.deleteUser(data.userTableId, function(err, data){
                     if(err){
                         return callback(err, null)
