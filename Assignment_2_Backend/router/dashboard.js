@@ -19,29 +19,30 @@ router.post("/", function (req, res) {
   } else {
     res.status(511);
     console.log("You are not authorised");
-    res.send("User is not authotised");
+    //res.send("User is not authorised");
+    res.json({"message" : "User if not authorised"});
   }
 });
 
-router.post("/", function (req, res) {
-  //console.log(req.session)
-  if (req.isAuthenticated()) {
-    // Console
+// router.post("/", function (req, res) {
+//   //console.log(req.session)
+//   if (req.isAuthenticated()) {
+//     // Console
 
-    // Call the controller method to fetch user information
-    userController.getUserInfo(req, res, function (err, data) {
-      if (err != null) {
-        res.send(err);
-      }
-      res.json(data);
-    });
-    // res.send("Something wrong happened")
-  } else {
-    res.status(511);
-    console.log("You are not authorised");
-    res.send("User is not authorised");
-  }
-});
+//     // Call the controller method to fetch user information
+//     userController.getUserInfo(req, res, function (err, data) {
+//       if (err != null) {
+//         res.send(err);
+//       }
+//       res.json(data);
+//     });
+//     // res.send("Something wrong happened")
+//   } else {
+//     res.status(511);
+//     console.log("You are not authorised");
+//     res.send("User is not authorised");
+//   }
+// });
 
 router.get("/", function (req, res) {
   console.log(req.session);
@@ -56,7 +57,8 @@ router.get("/", function (req, res) {
     // res.send("Something wrong happened")
   } else {
     console.log("You are not authorised");
-    res.send("User is not authotised");
+    //res.send("User is not authotised");
+    res.json({"message" : "User if not authorised"});
   }
 });
 

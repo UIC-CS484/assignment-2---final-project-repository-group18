@@ -1,20 +1,40 @@
 // Create a express server and point things to all the routes that we ought to take
 //Initial Basic Routes
+///// User Action Related
 //Login
 //Logout
 //CreateUser
 //DeleteUser
 //GetUserData
-//Update
-//CatchUserFavourites
-//UpdateUserFavourites
-//DeleteUserFavouriteList
-//Analytics Data
+//UpdateUserData
+////// Application Specific
+/// cryptoUserConfigController
+//SetFavourites
+//GetFavourites
+/// cryptoUserCommentLikeController
+//SetCommentsForNewsURL
+//GetCommentsForNewsURL
+//AddLiketoNewsURL
+/// staticDataController
+//SendListOfAllCryptos
+//getCryptoDetailsByName
+
 
 // Generic configuration
-const PORT = 1337;
-const cookie_Max_Age_Time = 1000 * 60 * 10; // 10 Minutes
-const MINPASSWORDLENGTH = 8;
+var PORT = 1337;
+var cookie_Max_Age_Time = 1000 * 60 * 10; // 10 Minutes
+var MINPASSWORDLENGTH = 8;
+var sessionSecretKey = "secret"
+var sessionsDb = "sessions"
+
+require("dotenv").config()
+
+// Replace the envrionement's default values used for generic configuration with that from the .env file
+PORT = process.env.port == "" || process.env.port == null ? PORT : process.env.port
+cookie_Max_Age_Time = process.env.cookieMaxAge == "" || process.env.cookieMaxAge == null ? cookie_Max_Age_Time : process.env.cookieMaxAge
+MINPASSWORDLENGTH = process.env.minPasswordLength == "" || process.env.minPasswordLength == null ? MINPASSWORDLENGTH : process.env.minPasswordLength
+sessionSecretKey = process.env.secret == "" ||  process.env.secret == null ? sessionSecretKey : process.env.secret
+sessionsDb = process.env.sessionsDb == "" || process.env.sessionsDb == null ? sessionsDb : process.env.sessionsDb
 
 const express = require("express");
 const sessionsObj = require("express-session");
@@ -22,9 +42,11 @@ const passport = require("passport");
 const app = express();
 const cors = require("cors");
 var sessionStore = require("connect-sqlite3")(sessionsObj)
-//const conn = 
+
 // user Defined
-const dbOperations = require("./models/userOperations");
+const dbObject = require("./models/sqlconnection");
+
+// User Details Specific imports
 const loginSubmit = require("./router/loginSubmit");
 const logoutRoute = require("./router/logout");
 const createUser = require("./router/createUser");
@@ -33,6 +55,11 @@ const updateUser = require("./router/updateUser");
 const deleteUser = require("./router/deleteUser");
 const getUserProfileData = require("./router/getUserProfileData");
 
+// Applications specific 
+const cryptoUserDetails = require("./router/cryptoFavourites")
+//const crytoDataDetails = require("./router/getCryptoList")
+const userCommentLike = require("./router/commentLike")
+const userNewsStore = require("./router/userNewsStore")
 
 
 app.use(express.json());
@@ -45,21 +72,19 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
     origin: ["http://localhost:3000"],
   })
-); // Development
+); 
 
-// TO DO
-// access-control-allow-credentials set to true
 
 app.use(
   sessionsObj({
-    // TODO Change the secret and save it in the config file
-    secret: "Secret",
+   
+    secret: sessionSecretKey,
     resave: false,
     saveUninitialized: true,
     cookie: {
       maxAge: cookie_Max_Age_Time,
     },
-    store : new sessionStore({db : "sessions.db", dir : "./database"})
+    store : new sessionStore({db : sessionsDb + ".db", dir : "./database"})
   })
 );
 
@@ -76,6 +101,13 @@ app.use("/updateUser", updateUser);
 app.use("/deleteUser", deleteUser);
 app.use("/getUserProfileData", getUserProfileData);
 
+//Application specific routes
+app.use("/cryptoUserDetails", cryptoUserDetails);     // All GOOD
+//app.use("/cryptoDataDetails", crytoDataDetails);    // Removing route as not being used
+app.use("/userCommentLike", userCommentLike)
+// Route to store the news Item to be fetched at later time
+app.use("/userNewsViewedData", userNewsStore)
+
 var server = app.listen(PORT, () => {
   console.log("Server started at ", PORT);
 });
@@ -86,8 +118,9 @@ process.on("SIGINT", () => {
   server.close(() => {
     console.log("Http server closed.");
     console.log("Closing database connection");
-    dbOperations.db.close();
+    dbObject.db.close();
   });
 });
 
-exports.MINPASSWORDLENGTH = MINPASSWORDLENGTH;
+exports.MINPASSWORDLENGTH = MINPASSWORDLENGTH
+

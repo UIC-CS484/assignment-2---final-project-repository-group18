@@ -78,7 +78,6 @@ passport.deserializeUser(function (user_emailId, done) {
         done(null, data)
     })
 });
-  
 
 
 exports.passportInit = passportInit
