@@ -1,4 +1,4 @@
-dbOperations = require("../models/commentData")
+const dbOperations = require("../models/commentData")
 
 function setCommentForUser(req , callback){
     // Check for supplied email Id and validate with the session present 
@@ -11,6 +11,7 @@ function setCommentForUser(req , callback){
         return callback(err, null)   
     }
     emailId = req.body.emailId
+    // To check if the correct user is commenting on the data and this is not a falicious commenting 
     if (emailId != req.user.user_emailID){
         err = "Email Id doesn't match the session"
         return callback(err, null)
@@ -36,6 +37,7 @@ function setCommentForUser(req , callback){
     }
     timeStamp = req.body.timeStamp
     dataObj = {
+        userTableId: req.user.userTableId,
         emailId : emailId,
         ticker : ticker,
         newsURL : newsURL,
@@ -71,7 +73,7 @@ function incrementLikesForNews(req, callback){
         return callback(err, null)
     }
 
-    dbOperations.addLikes(req.body.newsURL, 1 ,function(err, data){
+    dbOperations.addLikes(req.body.newsURL, req.user.userTableId, function(err, data){
         if(err != null){
             return callback(err, null)
         }

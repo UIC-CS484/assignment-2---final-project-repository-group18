@@ -9,7 +9,7 @@ function checkIfAllDetailsPresent(req, callback){
     //userId = req.body.userId
     if (req.body.emailId == null || req.body.emailId == ''){
         err = "Email ID is empty "
-        callback(err, null)   
+        return callback(err, null)   
     }
     emailId = req.body.emailId
     // Check if email Id is in correct form
@@ -17,19 +17,19 @@ function checkIfAllDetailsPresent(req, callback){
     emailId = emailId.trim()
     if (req.body.username == null || req.body.username == ''){
         err = "User Name is empty"
-        callback(err, null)
+        return callback(err, null)
     }
     username = req.body.username
     if (req.body.password == null || req.body.password == ''){
         err = "Password is empty"
-        callback(err, null)
+        return callback(err, null)
     }
     password = req.body.password
 
     
     if(req.body.dob == null || req.body.dob == ''){
         err = "Dob is empty"
-        callback(err, null)
+        return callback(err, null)
     }
     dob = req.body.dob
 
@@ -41,7 +41,7 @@ function checkIfAllDetailsPresent(req, callback){
         password : password,
         dob : dob 
     }
-    callback(null, dataObj)
+    return callback(null, dataObj)
 }
 
 function checkPasswordLength(data){

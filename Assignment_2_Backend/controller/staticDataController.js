@@ -1,7 +1,9 @@
-dbOperations = require('../models/staticDataOperations')
+const dbOperations = require("../models/staticDataOperations")
 
 function getCryptoCurrenciesList(callback){
-    dbOperations.getCryptoList(function(err, data){
+
+    console.log(dbOperations)
+    dbOperations.getDBCryptoList(function(err, data){
         if(err != null){
            return callback(err, null)
         }

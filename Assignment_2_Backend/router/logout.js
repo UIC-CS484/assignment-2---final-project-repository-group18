@@ -9,7 +9,7 @@ router.post("/", function(req, res){
     // console.log("After the logout operation")
     // console.log(req.session)
     // console.log(req.user)
-    res.send("Successfully logged out")
+    res.json({"message" : "Successfully logged out"})
     
 })
 

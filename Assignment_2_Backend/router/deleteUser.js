@@ -8,7 +8,7 @@ router.post("/", function(req, res, next){
         userController.deleteUser(req, res, function(err, data){
             if(err != null){
                 console.log(err)
-                res.json(err)
+                res.json( {"message" : err}   )
             }
             else{
                 msg = {"message" : data}    

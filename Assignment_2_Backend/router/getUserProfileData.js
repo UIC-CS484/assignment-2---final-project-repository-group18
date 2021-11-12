@@ -8,7 +8,7 @@ router.post("/", function(req, res, next){
         userController.getUserProfileData(req, res, function(err, data){
             if(err){
 
-                res.json(err)
+                res.json({"message" : err}   )
             }
             msg = {"message" : data}    
             res.json(msg)
