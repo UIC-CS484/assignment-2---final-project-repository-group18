@@ -1,18 +1,18 @@
-const sqlite3 = require("sqlite3").verbose();
 const passport = require("../controller/passport");
-const { getUserInfo } = require("../controller/userController");
-const { get } = require("../router/loginSubmit");
+// const { getUserInfo } = require("../controller/userController");
+// const { get } = require("../router/loginSubmit");
+const db = require("../models/sqlconnection").db
 
-let db = new sqlite3.Database(
-  "./database/sampleDb.db",
-  sqlite3.OPEN_READWRITE,
-  (err) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log("Connected to the database");
-  }
-);
+// let db = new sqlite3.Database(
+//   "./database/sampleDb.db",
+//   sqlite3.OPEN_READWRITE,
+//   (err) => {
+//     if (err) {
+//       return console.error(err.message);
+//     }
+//     console.log("Connected to the database");
+//   }
+// );
 
 // Create a user given the inputs
 function insertNewUser(userObj, callback) {

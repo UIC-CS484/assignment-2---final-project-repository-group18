@@ -1,15 +1,26 @@
 // Create a express server and point things to all the routes that we ought to take
 //Initial Basic Routes
+///// User Action Related
 //Login
 //Logout
 //CreateUser
 //DeleteUser
 //GetUserData
-//Update
-//CatchUserFavourites
-//UpdateUserFavourites
-//DeleteUserFavouriteList
-//Analytics Data
+//UpdateUserData
+////// Application Specific
+/// cryptoUserConfigController
+//SetFavourites
+//GetFavourites
+/// cryptoUserCommentLikeController
+//SetCommentsForNewsURL
+//GetCommentsForNewsURL
+//AddLiketoNewsURL
+/// staticDataController
+//SendListOfAllCryptos
+//getCryptoDetailsByName
+
+/// News Population Controller
+//GetNewsForCryptoTickers
 
 // Generic configuration
 const PORT = 1337;
@@ -17,19 +28,29 @@ const cookie_Max_Age_Time = 1000 * 60 * 10; // 10 Minutes
 const MINPASSWORDLENGTH = 8;
 
 const express = require("express");
+const sessionsObj = require("express-session");
+const passport = require("passport");
 const app = express();
-var dbOperations = require("./models/userOperations");
-
-var loginSubmit = require("./router/loginSubmit");
-var logoutRoute = require("./router/logout");
-var createUser = require("./router/createUser");
-var dashboard = require("./router/dashboard");
-var updateUser = require("./router/updateUser");
-var deleteUser = require("./router/deleteUser");
-var getUserProfileData = require("./router/getUserProfileData");
-var sessionsObj = require("express-session");
-var passport = require("passport");
 const cors = require("cors");
+var sessionStore = require("connect-sqlite3")(sessionsObj)
+//const conn = 
+// user Defined
+const dbObject = require("./models/sqlconnection");
+
+// User Details Specific imports
+const loginSubmit = require("./router/loginSubmit");
+const logoutRoute = require("./router/logout");
+const createUser = require("./router/createUser");
+const dashboard = require("./router/dashboard");
+const updateUser = require("./router/updateUser");
+const deleteUser = require("./router/deleteUser");
+const getUserProfileData = require("./router/getUserProfileData");
+
+// Applications specific 
+const cryptoUserDetails = require("./router/cryptoFavourites")
+const crytoDataDetails = require("./router/getCryptoList")
+const userCommentLike = require("./router/commentLike")
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -55,6 +76,7 @@ app.use(
     cookie: {
       maxAge: cookie_Max_Age_Time,
     },
+    store : new sessionStore({db : "sessions.db", dir : "./database"})
   })
 );
 
@@ -71,6 +93,11 @@ app.use("/updateUser", updateUser);
 app.use("/deleteUser", deleteUser);
 app.use("/getUserProfileData", getUserProfileData);
 
+//Application specific routes
+app.use("/cryptoUserDetails", cryptoUserDetails);
+app.use("/cryptoDataDetails", crytoDataDetails);
+app.use("/userCommentLike", userCommentLike)
+
 var server = app.listen(PORT, () => {
   console.log("Server started at ", PORT);
 });
@@ -81,7 +108,7 @@ process.on("SIGINT", () => {
   server.close(() => {
     console.log("Http server closed.");
     console.log("Closing database connection");
-    dbOperations.db.close();
+    dbObject.db.close();
   });
 });
 
