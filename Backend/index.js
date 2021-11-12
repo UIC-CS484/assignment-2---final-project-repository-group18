@@ -22,19 +22,47 @@
 
 // Generic configuration
 var PORT = 1337;
-var cookie_Max_Age_Time = 1000 * 60 * 10; // 10 Minutes
+var cookie_Max_Age_Time = 1000* 60 * 10; // 10 Minutes
 var MINPASSWORDLENGTH = 8;
 var sessionSecretKey = "secret"
 var sessionsDb = "sessions"
 
-require("dotenv").config()
+
+// async () => {
+
+//   await require("dotenv").config()
+//   PORT = await process.env.port == "" || process.env.port == null ? PORT : process.env.port
+//   cookie_Max_Age_Time = await  process.env.cookieMaxAge == "" || process.env.cookieMaxAge == null ? cookie_Max_Age_Time : process.env.cookieMaxAge
+//    //console.log(cookie_Max_Age_Time)
+//   MINPASSWORDLENGTH = await process.env.minPasswordLength == "" || process.env.minPasswordLength == null ? MINPASSWORDLENGTH : process.env.minPasswordLength
+//   sessionSecretKey = await process.env.secret == "" ||  process.env.secret == null ? sessionSecretKey : process.env.secret
+//   sessionsDb = await process.env.sessionsDb == "" || process.env.sessionsDb == null ? sessionsDb : process.env.sessionsDb
+
+//   console.log("Configs used for server ---->")
+//   console.log("PORT -> " + PORT)
+//   console.log("Cookie Max Age -> " + cookie_Max_Age_Time)
+//   console.log("Minimum Password Length -> " + MINPASSWORDLENGTH )
+//   console.log("Session Key -> " + sessionSecretKey)
+//   console.log("sessionsDb -> " + sessionsDb)
+// }
+
+ require("dotenv").config()
 
 // Replace the envrionement's default values used for generic configuration with that from the .env file
 PORT = process.env.port == "" || process.env.port == null ? PORT : process.env.port
 cookie_Max_Age_Time = process.env.cookieMaxAge == "" || process.env.cookieMaxAge == null ? cookie_Max_Age_Time : process.env.cookieMaxAge
+//console.log(cookie_Max_Age_Time)
 MINPASSWORDLENGTH = process.env.minPasswordLength == "" || process.env.minPasswordLength == null ? MINPASSWORDLENGTH : process.env.minPasswordLength
 sessionSecretKey = process.env.secret == "" ||  process.env.secret == null ? sessionSecretKey : process.env.secret
 sessionsDb = process.env.sessionsDb == "" || process.env.sessionsDb == null ? sessionsDb : process.env.sessionsDb
+
+// Comment out this portion ... Only used for debugging
+console.log("Configs used for server ---->")
+console.log("PORT -> " + PORT)
+console.log("Cookie Max Age -> " + cookie_Max_Age_Time)
+console.log("Minimum Password Length -> " + MINPASSWORDLENGTH )
+console.log("Session Key -> " + sessionSecretKey)
+console.log("sessionsDb -> " + sessionsDb)
 
 const express = require("express");
 const sessionsObj = require("express-session");
