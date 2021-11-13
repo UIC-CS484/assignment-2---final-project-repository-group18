@@ -192,6 +192,19 @@ function deleteUser(emailId, callbackfn) {
   });
 }
 
+function clearDataForTests(callbackfn){
+  sqlDeleteDataFromDataBase = "Delete from UserDetails"
+  sqlParams = ["UserDetails"]
+
+  db.run(sqlDeleteDataFromDataBase, [], function (err){
+       if (err != null){
+           return callbackfn(err, null)
+       }    
+
+       return callbackfn(null, true)
+  })
+}
+
 // Function to change password
 // TO DO
 
@@ -203,3 +216,4 @@ exports.findUserByUserTableId = findUserByUserTableId;
 exports.db = db;
 exports.deleteUser = deleteUser;
 exports.getUserData = getUserData;
+exports.clearDataForTests = clearDataForTests

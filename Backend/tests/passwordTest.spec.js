@@ -1,4 +1,5 @@
 const helperFunctions = require("../helper/helperFunction")
+const passportFunction = require("../controller/passport")
 
 const inputPasswordPos = { "password" : "Password@123"}
 const inputPasswordNeg = { "password" : "Pass"}
@@ -20,5 +21,28 @@ describe("Test for Passwords in the application" , ()=>{
         expect(isPasswordStrengthOkay).toBe(false)
     })
 
+
+    // tests for checking the hashing in the pasword 
+    test("Positive Case for checking with a password and its hash", () =>{
+        try{
+            var returnedObj = passportFunction.genPassword(inputPasswordPos.password)
+            expect(passportFunction.validPassword(inputPasswordPos.password, returnedObj.hash, returnedObj.salt)).toBe(true)
+            //done()
+        }catch(err){
+            //done(err)
+        }
+       
+    })
+
+    test("Negative Case for checking with a password and its hash", () =>{
+        try{
+            var returnedObj = passportFunction.genPassword(inputPasswordPos.password)
+            expect(passportFunction.validPassword(inputPasswordPos.password, returnedObj.hash, "randome")).toBe(false)
+            //done()
+        }catch(err){
+            //done(err)
+        }
+       
+    })
 
 })

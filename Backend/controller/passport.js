@@ -82,3 +82,4 @@ passport.deserializeUser(function (user_emailId, done) {
 
 exports.passportInit = passportInit
 exports.genPassword = genPassword
+exports.validPassword = validPassword
