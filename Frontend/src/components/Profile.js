@@ -13,12 +13,19 @@ const theme = createTheme({
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const [newName, setNewName] = useState(null);
+  const [updateResponse, setUpdateResponse] = useState(null);
+  const history = useHistory();
+
+  // Thu Nov 04 2021 22:56:14 GMT-0500 (Central Daylight Time)
 
   useEffect(() => {
     axios
       .get("/dashboard")
       .then(function (response) {
-        console.log(response);
+        const temp = response.data.dob.split(" ");
+        response.data.dob = temp[1] + " " + temp[2] + " " + temp[3];
+
         setUser(response.data);
       })
       .catch(function (error) {
@@ -38,18 +45,56 @@ const Profile = () => {
       });
   };
 
+  const editProfile = () => {
+    axios
+      .post("/updateUser", {
+        username: newName,
+        emailId: user.emailId,
+        dob: user.dob,
+      })
+      .then(function (response) {
+        console.log(response);
+        history.push("/userProfile");
+        setUpdateResponse(true);
+        user.username = newName;
+        setNewName("");
+        // window.location.href = "/userProfile";
+      })
+      .catch(function (error) {
+        console.log(error.response);
+      });
+  };
+
   return (
     <div className="profile">
       <ThemeProvider theme={theme}>
-        UserInfo:
-        <p>Name: {user?.username}</p>
-        <p>Email: {user?.emailId}</p>
-        <p>Date of birth: {user?.dob}</p>
-        <TextField fullWidth label="Name" id="fullWidth" />
+        <h3>UserInfo:</h3>
+        {updateResponse ? (
+          <h4 style={{ color: "#339b30" }}>Name updated!</h4>
+        ) : (
+          ""
+        )}
+        <p>
+          <b>Name:</b> {user?.username}
+        </p>
+        <p>
+          <b>Email:</b> {user?.emailId}
+        </p>
+        <p>
+          <b>Date of birth:</b> {user?.dob}
+        </p>
+        <TextField
+          fullWidth
+          label="New Name"
+          value={newName}
+          onChange={(e) => setNewName(e.target.value)}
+          id="fullWidth"
+        />
         <Button
           type="submit"
           fullWidth
           variant="contained"
+          onClick={editProfile}
           sx={{ mt: 3, mb: 2 }}
         >
           Submit
