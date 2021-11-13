@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -8,6 +8,7 @@ import axios from "../axios";
 
 const SignIn = () => {
   const history = useHistory();
+  const [error, setError] = useState(false);
   const theme = createTheme({
     palette: {
       mode: "dark",
@@ -29,6 +30,7 @@ const SignIn = () => {
       })
       .catch(function (error) {
         console.log(error.response);
+        setError(true);
       });
   };
 
@@ -79,6 +81,11 @@ const SignIn = () => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
+            {error ? (
+              <p style={{ color: "red" }}>Incorrect email or password!</p>
+            ) : (
+              ""
+            )}
             <Button
               type="submit"
               fullWidth

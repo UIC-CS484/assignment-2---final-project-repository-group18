@@ -35,13 +35,6 @@ function App() {
       .then((res) => {
         if (res.status == 200) {
           console.log(res.data);
-          // dispatch({
-          //   type: "SET_USER",
-          //   user: res.data,
-          // });
-
-          // setIsAuthenticated(true);
-          // setUserDetails(res.data.message);
           history.push("/dashboard");
         } else {
           console.log("False");
@@ -49,8 +42,6 @@ function App() {
       })
       .catch((err) => {
         console.log(err.response);
-
-        // setIsAuthenticated(false);
       });
   };
   return (
@@ -61,20 +52,6 @@ function App() {
           <Route path="/" exact>
             <HomePage />
           </Route>
-          {!user ? (
-            <div>
-              <Route path="/signup">
-                <SignUp />
-              </Route>
-              <Route path="/signin">
-                <SignIn />
-              </Route>
-            </div>
-          ) : (
-            <div>
-              <h1>Access Denied 1</h1>
-            </div>
-          )}
           {user ? (
             <div>
               <Route path="/dashboard">
@@ -89,7 +66,15 @@ function App() {
               </Route>
             </div>
           ) : (
-            <h1>Access Denied </h1>
+            <div>
+              {/* <h1>Access Denied </h1> */}
+              <Route path="/signup">
+                <SignUp />
+              </Route>
+              <Route path="/signin">
+                <SignIn />
+              </Route>
+            </div>
           )}
         </Switch>
       </div>

@@ -126,6 +126,9 @@ const MobileNav = () => {
         {user ? (
           <>
             <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
+            <MenuItem onClick={() => handleMenuClick("/Dashboard")}>
+              Dashboard
+            </MenuItem>
             <MenuItem onClick={() => handleMenuClick("/profile")}>
               Profile
             </MenuItem>
