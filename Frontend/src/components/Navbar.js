@@ -55,8 +55,21 @@ const Navbar = ({ auth }) => {
                     Home
                   </Link>
                 </Button>
+                {user ? (
+                  <Button
+                    style={{ margin: "0 15px" }}
+                    variant="outlined"
+                    color="inherit"
+                  >
+                    <Link to="/dashboard" style={linkStyle}>
+                      Dashboard
+                    </Link>
+                  </Button>
+                ) : (
+                  ""
+                )}
                 <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                  Cryptobase
+                  CryptoBase
                 </Typography>
                 {!user ? (
                   <div className="nav_buttons">
@@ -74,7 +87,7 @@ const Navbar = ({ auth }) => {
                     </Stack>
                   </div>
                 ) : (
-                  <h3>
+                  <h3 style={{ paddingRight: "10px" }}>
                     {`Hi ${
                       user?.username.split(" ")[0].charAt(0).toUpperCase() +
                       user?.username.split(" ")[0].slice(1)
@@ -83,11 +96,20 @@ const Navbar = ({ auth }) => {
                   </h3>
                 )}
                 {user ? (
-                  <Button variant="outlined" color="inherit">
-                    <Link to="/" onClick={logout} style={linkStyle}>
-                      Log out
-                    </Link>
-                  </Button>
+                  <div>
+                    <Stack direction="row" spacing={2}>
+                      <Button variant="outlined" color="inherit">
+                        <Link to="/userProfile" style={linkStyle}>
+                          Profile
+                        </Link>
+                      </Button>
+                      <Button variant="outlined" color="inherit">
+                        <Link to="/" onClick={logout} style={linkStyle}>
+                          Log out
+                        </Link>
+                      </Button>
+                    </Stack>
+                  </div>
                 ) : (
                   ""
                 )}

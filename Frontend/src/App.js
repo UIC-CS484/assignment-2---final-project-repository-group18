@@ -14,10 +14,13 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import axios from "./axios";
 import { myContext } from "./context/Context";
+import TickerSelection from "./components/TickerSelection";
+import Profile from "./components/Profile";
+import CryptoChart from "./components/Chart";
 
 function App() {
   const user = useContext(myContext);
-
+  console.log("user", user);
   const history = useHistory();
   useEffect(() => {
     return () => {
@@ -58,10 +61,6 @@ function App() {
           <Route path="/" exact>
             <HomePage />
           </Route>
-
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
           {!user ? (
             <div>
               <Route path="/signup">
@@ -72,7 +71,25 @@ function App() {
               </Route>
             </div>
           ) : (
-            <h1>Access Denied</h1>
+            <div>
+              <h1>Access Denied 1</h1>
+            </div>
+          )}
+          {user ? (
+            <div>
+              <Route path="/dashboard">
+                <Dashboard />
+              </Route>
+              <Route path="/tickers">
+                <TickerSelection />
+              </Route>
+              <Route path="/chart" component={CryptoChart} />
+              <Route path="/userProfile">
+                <Profile />
+              </Route>
+            </div>
+          ) : (
+            <h1>Access Denied </h1>
           )}
         </Switch>
       </div>

@@ -19,3 +19,35 @@
   width: 100%;
   text-align: left;
 }
+
+.homepage_newsBlocks {
+  display: flex;
+  justify-content: center;
+}
+
+.newsContainer {
+  width: 90%;
+}
+
+.tickers__lists {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(24, 17, 17);
+  width: 90%;
+  margin: auto;
+}
+
+.tickers__all {
+  margin: 20px 0 20px 0;
+}
+
+.chart {
+  margin: auto;
+  max-width: 90%;
+  /* padding: 20px; */
+}
+
+.profile {
+  max-width: 50%;
+  margin: 10% auto;
+}

@@ -126,6 +126,9 @@ const MobileNav = () => {
         {user ? (
           <>
             <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
+            <MenuItem onClick={() => handleMenuClick("/profile")}>
+              Profile
+            </MenuItem>
             <MenuItem onClick={() => logout()}>Log Out</MenuItem>
           </>
         ) : (

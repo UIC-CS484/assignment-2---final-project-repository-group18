@@ -29,6 +29,7 @@ function SignUp() {
       })
       .then(function (response) {
         console.log(response);
+        window.location.href = "/signin";
       })
       .catch(function (error) {
         console.log(error);
