@@ -12,7 +12,7 @@ function setComment(dataObj, callbackfn){
     db.run(sqlInsertComment, sqlParams, function(err){
         if(err != null){
             //console.log(err)
-            return callbackfn(err, null)
+            return callbackfn(err, false)
         }
         return callbackfn(null, true)
     })
@@ -49,7 +49,7 @@ function addLikes(newsURL, userTableId, callbackfn){
 
             db.run(sqlInsertLikesData, sqlParams, function(err){
                 if(err != null){
-                    return callbackfn(err, null)
+                    return callbackfn(err, false)
                 }
 
                 return callbackfn(null, true)
@@ -113,4 +113,21 @@ function getLikesForNews(newsURL, callbackfn){
     })
 }
 
-module.exports = {setComment, getComments, addLikes, getLikesForNews}
+function getIfUserLikedNews(newsURL, callbackfn){
+    sqlGetIfUserLiked = "Select COUNT(*) as count, newsURL from NewsLikes where newsURL = ?"
+    sqlParams = [newsURL]
+
+    db.get(sqlGetIfUserLiked, sqlParams, function(err, data){
+        if (err != null){
+            return callbackfn(err, null)
+        }
+
+        if (data.count > 0){
+            return callbackfn(null, data)
+        }else{
+            return callbackfn(null, data)
+        }
+    })
+}
+
+module.exports = {setComment, getComments, addLikes, getLikesForNews, getIfUserLikedNews, db}

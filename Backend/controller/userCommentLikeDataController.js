@@ -1,4 +1,5 @@
 const dbOperations = require("../models/commentData")
+const { db } = require("../models/sqlconnection")
 
 function setCommentForUser(req , callback){
     // Check for supplied email Id and validate with the session present 
@@ -97,4 +98,19 @@ function getLikesForNews(req, callback){
 
 }
 
-module.exports = {setCommentForUser, getCommentsForNews, incrementLikesForNews, getLikesForNews}
+function getUserLikeData(req, callback) {
+    if (req.body.newsURL == "" || req.body.newsURL == null){
+        err = "News URL not provided"
+        return callback(err, null)
+    }
+
+    dbOperations.getIfUserLikedNews(req.body.newsURL, function(err, data) {
+        if (err != null){
+            return callback(err, null)
+        }
+
+        return callback(null, data)
+    })
+}
+
+module.exports = {setCommentForUser, getCommentsForNews, incrementLikesForNews, getLikesForNews, getUserLikeData}
