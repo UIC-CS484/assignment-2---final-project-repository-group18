@@ -9,7 +9,7 @@ Akshat Wagadre, Olatunji Busari, Tejas Rajopadhye
 
 ## Starting the Backend Server
 
-Please add a .env file and copy and paste the below configuration
+Please add a .env file and copy and paste the below configuration in "Backend" folder
 
 ```
 port=1337
