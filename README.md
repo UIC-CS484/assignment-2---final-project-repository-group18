@@ -9,6 +9,18 @@ Akshat Wagadre, Olatunji Busari, Tejas Rajopadhye
 
 ## Starting the Backend Server
 
+Please add a .env file and copy and paste the below configuration
+
+```
+port=1337
+cookieMaxAge=3600000
+minPasswordLength=8
+secret="8812nkj12891nkfjhsdfk23"
+dbName="cryptoBaseDB"
+sessionsDb=sessions
+
+```
+
 ```
 $ cd Assignment_2_Backend
 $ npm i

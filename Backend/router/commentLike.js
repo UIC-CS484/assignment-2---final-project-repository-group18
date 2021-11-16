@@ -70,6 +70,7 @@ router.post("/addLikesForNews", function(req, res){
       }
 })
 
+
 router.post("/getLikesForNews", function(req, res){
     if (req.isAuthenticated()) {     
         commentLikeController.getLikesForNews(req, function (err, data) {
@@ -90,6 +91,24 @@ router.post("/getLikesForNews", function(req, res){
         console.log("You are not authorised to access -> userCommentLike/getLikesForNews");
         res.send("User is not authorised");
       }
+})
+
+router.post("/getUserLikeData", function(req, res){
+  if (req.isAuthenticated()) {     
+      commentLikeController.getUserLikeData(req, function (err, data) {
+        if (err != null) {
+          res.json({"message" : err});
+        }
+        else{
+          res.json({"message" : data});
+        }
+      });
+
+    } else {
+      res.status(511);
+      console.log("You are not authorised to access -> userCommentLike/getUserLikeData");
+      res.send("User is not authorised");
+    }
 })
 
 
