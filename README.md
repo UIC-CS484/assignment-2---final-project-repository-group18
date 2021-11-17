@@ -137,6 +137,6 @@ All the unit test are made with a replica of "cryptoBaseDB.db" database called "
 
 ## ERD Diagram 
 
-<img src="ERD_Diag.jpg" >
+<img  src="ERD_Diag.jpg" >
 
 
