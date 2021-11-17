@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { myContext } from "../context/Context";
 import axios from "../axios";
 import "./styles.css";
 
@@ -13,6 +14,8 @@ const theme = createTheme({
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const { setUserName } = useContext(myContext);
+
   const [newName, setNewName] = useState(null);
   const [updateResponse, setUpdateResponse] = useState(null);
   const history = useHistory();
@@ -24,6 +27,7 @@ const Profile = () => {
       .get("/dashboard")
       .then(function (response) {
         const temp = response.data.dob.split(" ");
+        response.data.dateTime = response.data.dob;
         response.data.dob = temp[1] + " " + temp[2] + " " + temp[3];
 
         setUser(response.data);
@@ -50,13 +54,14 @@ const Profile = () => {
       .post("/updateUser", {
         username: newName,
         emailId: user.emailId,
-        dob: user.dob,
+        dob: user.dateTime,
       })
       .then(function (response) {
         console.log(response);
         history.push("/userProfile");
         setUpdateResponse(true);
         user.username = newName;
+        setUserName(newName);
         setNewName("");
         // window.location.href = "/userProfile";
       })

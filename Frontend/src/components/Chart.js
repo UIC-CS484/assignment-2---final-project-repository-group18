@@ -2,12 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Chart from "kaktana-react-lightweight-charts"; // Might need --force install
 import "./styles.css";
+import SwitchChart from "./SwitchChart";
 
 const CryptoChart = (props) => {
   const [marketData, setMarketData] = useState(null);
-  // console.log(props.location.state);
+  const [currentCoinName, setCurrentCoinName] = useState(
+    props.location.state.coinName
+  );
 
-  const coinName = props.location.state.coinName;
+  // console.log(props.location.state);
 
   const state = {
     options: {
@@ -26,14 +29,14 @@ const CryptoChart = (props) => {
       },
     },
   };
+  // console.log(currentCoinName);
 
   useEffect(() => {
     axios
       .get(
-        `https://api.coingecko.com/api/v3/coins/${coinName}/market_chart?vs_currency=usd&days=500&interval=daily`
+        `https://api.coingecko.com/api/v3/coins/${currentCoinName}/market_chart?vs_currency=usd&days=500&interval=daily`
       )
       .then((response) => {
-        // console.log(response);
         const data = [];
         response.data.prices.map((item) => {
           const date = new Date(item[0]).toLocaleDateString("en-US").split("/");
@@ -42,14 +45,16 @@ const CryptoChart = (props) => {
           data.push({ time: a, value: item[1] });
         });
         setMarketData([{ data: data }]);
-        // console.log(marketData);
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => console.log(err.response));
+  }, [currentCoinName]);
 
   return (
     <div>
-      <h1>{coinName.charAt(0).toUpperCase() + coinName.slice(1)} Chart</h1>
+      <h1>
+        {currentCoinName?.charAt(0).toUpperCase() + currentCoinName?.slice(1)}{" "}
+        Chart
+      </h1>
       <div className="chart">
         {marketData !== null ? (
           <Chart
@@ -64,6 +69,10 @@ const CryptoChart = (props) => {
         ) : (
           <h3>Loading chart...</h3>
         )}
+        <SwitchChart
+          setCoin={(c) => setCurrentCoinName(c)}
+          favourites={props.location.state.favorites}
+        />
       </div>
     </div>
   );

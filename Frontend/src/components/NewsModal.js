@@ -48,7 +48,7 @@ const NewsModal = () => {
             Comments
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-            {comments}
+            {}
           </Typography>
           <TextField
             variant="outlined"

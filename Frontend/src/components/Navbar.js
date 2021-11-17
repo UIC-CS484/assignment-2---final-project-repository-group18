@@ -19,9 +19,10 @@ import MobileNav from "./MobileNav";
 const Navbar = ({ auth }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const user = useContext(myContext);
+  const { user, userName } = useContext(myContext);
   // console.log(user);
-  const [data, setData] = useState(auth);
+  // const [data, setData] = useState(auth);
+  // const [userName, setUserName] = useState(user?.username);
 
   const logout = async () => {
     await axios
@@ -89,8 +90,8 @@ const Navbar = ({ auth }) => {
                 ) : (
                   <h3 style={{ paddingRight: "10px" }}>
                     {`Hi ${
-                      user?.username.split(" ")[0].charAt(0).toUpperCase() +
-                      user?.username.split(" ")[0].slice(1)
+                      userName?.split(" ")[0].charAt(0).toUpperCase() +
+                      userName?.split(" ")[0].slice(1)
                     }!
                 `}
                   </h3>

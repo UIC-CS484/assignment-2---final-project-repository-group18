@@ -10,6 +10,7 @@ import axios from "../axios";
 
 function SignUp() {
   const [value, setValue] = React.useState(null);
+  const [error, setError] = React.useState(null);
 
   const theme = createTheme({
     palette: {
@@ -24,15 +25,26 @@ function SignUp() {
       .post("/createUser", {
         username: data.get("name"),
         emailId: data.get("email"),
-        dob: value.toString(),
+        dob: value ? value.toString() : "",
         password: data.get("password"),
       })
       .then(function (response) {
         console.log(response);
-        window.location.href = "/signin";
+        if (
+          response.data.message === "Email ID is empty " ||
+          response.data.message === "User Name is empty"
+        )
+          setError("Please fill all required fields!");
+        else if (response.data.message === "Password Length less than 8")
+          setError("Password should be atleast 8 characters long.");
+        else {
+          setError(null);
+          window.location.href = "/signin";
+        }
+        console.log(error);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response);
       });
     // console.log(axios);
   };
@@ -76,7 +88,7 @@ function SignUp() {
               <LocalizationProvider dateAdapter={DateAdapter}>
                 <DatePicker
                   required
-                  label="Date of Birth"
+                  label="Date of Birth *"
                   name="dob"
                   value={value}
                   onChange={(newValue) => {
@@ -111,6 +123,7 @@ function SignUp() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
+            {error ? <p style={{ color: "red" }}>{error}</p> : ""}
             <Button
               type="submit"
               fullWidth

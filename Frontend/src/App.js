@@ -19,7 +19,7 @@ import Profile from "./components/Profile";
 import CryptoChart from "./components/Chart";
 
 function App() {
-  const user = useContext(myContext);
+  const { user } = useContext(myContext);
   console.log("user", user);
   const history = useHistory();
   useEffect(() => {
@@ -60,7 +60,8 @@ function App() {
               <Route path="/tickers">
                 <TickerSelection />
               </Route>
-              <Route path="/chart" component={CryptoChart} />
+              <Route path="/chart" component={CryptoChart} />{" "}
+              {/* Different cuz sending props to CryptoChart from Dashboard via Link later*/}
               <Route path="/userProfile">
                 <Profile />
               </Route>
