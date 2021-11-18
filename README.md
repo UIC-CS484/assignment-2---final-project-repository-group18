@@ -10,6 +10,18 @@ Akshat Wagadre, Olatunji Busari, Tejas Rajopadhye
 
 ## Starting the Backend Server
 
+Please add a .env file and copy and paste the below configuration in "Backend" folder
+
+```
+port=1337
+cookieMaxAge=3600000
+minPasswordLength=8
+secret="8812nkj12891nkfjhsdfk23"
+dbName="cryptoBaseDB"
+sessionsDb=sessions
+
+```
+
 ```
 $ cd Backend
 $ npm i
@@ -135,11 +147,11 @@ All the session related data is used in the session.db table . The configuration
 
 #### Testing Table
 
-All the unit test are made with a replica of "cryptoBaseDB.db" table called "testDB.db". Before any operation related to database , all the data is erased . Please take a look at 'userOperationDB.test.js' file for the same
+All the unit test are made with a replica of "cryptoBaseDB.db" database called "testDB.db". Before any operation related to database , all the data is erased . Please take a look at 'userOperationDB.test.js' file for the same
 
 ## ERD Diagram
 
-<img src="ERD_Diag.jpg" >
+<img  src="ERD_Diag.jpg" >
 
 ## API's Used
 
