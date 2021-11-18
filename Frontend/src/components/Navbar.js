@@ -20,9 +20,6 @@ const Navbar = ({ auth }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
   const { user, userName } = useContext(myContext);
-  // console.log(user);
-  // const [data, setData] = useState(auth);
-  // const [userName, setUserName] = useState(user?.username);
 
   const logout = async () => {
     await axios
@@ -49,7 +46,13 @@ const Navbar = ({ auth }) => {
       ) : (
         <div className="navbar">
           <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar
+              position="static"
+              style={{
+                background: "#002f4b",
+                // backgroundImage: "linear-gradient(to bottom, #002f4b, #361e1a)",
+              }}
+            >
               <Toolbar>
                 <Button variant="outlined" color="inherit">
                   <Link to="/" style={linkStyle}>
@@ -69,8 +72,18 @@ const Navbar = ({ auth }) => {
                 ) : (
                   ""
                 )}
-                <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                  CryptoBase
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{ flexGrow: 1 }}
+                  style={{
+                    textAlign: "start",
+                    color: "lightgreen",
+                    fontWeight: "700",
+                    paddingLeft: "10px",
+                  }}
+                >
+                  <p>CRYPTOBASE</p>
                 </Typography>
                 {!user ? (
                   <div className="nav_buttons">

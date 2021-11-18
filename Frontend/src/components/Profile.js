@@ -73,7 +73,7 @@ const Profile = () => {
   return (
     <div className="profile">
       <ThemeProvider theme={theme}>
-        <h3>UserInfo:</h3>
+        <h3>User Info:</h3>
         {updateResponse ? (
           <h4 style={{ color: "#339b30" }}>Name updated!</h4>
         ) : (

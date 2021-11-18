@@ -1,12 +1,11 @@
 .App {
   text-align: center;
   color: lightgrey;
+  background: rgba(65, 8, 102, 0.3);
+  height: 100vh;
 }
 
 .App-header {
-  background: rgb(65, 8, 102);
-  /* background-image: linear-gradient(to bottom right, #002f4b, #dc4225); */
-
   width: 90%;
   /* height: 40px; */
   margin: auto;

@@ -41,7 +41,7 @@ function HomePage() {
 
   return (
     <div>
-      <h1>HomePage</h1>
+      <h2>Home Page</h2>
       <div className="homepage_newsBlocks">
         <div class="newsContainer">
           <Grid container spacing={2}>

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MobileNav = () => {
-  const user = useContext(myContext);
+  const { user, userName } = useContext(myContext);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -81,7 +81,12 @@ const MobileNav = () => {
   return (
     <div className="mobileNav">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar
+          position="static"
+          style={{
+            background: "#002f4b",
+          }}
+        >
           <Toolbar>
             <IconButton
               edge="start"
@@ -92,17 +97,17 @@ const MobileNav = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-              Cryptobase
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              CRYPTOBASE
             </Typography>
             {user ? (
-              <h3>
+              <h4>
                 {`Hi ${
-                  user?.username.split(" ")[0].charAt(0).toUpperCase() +
-                  user?.username.split(" ")[0].slice(1)
+                  userName.split(" ")[0].charAt(0).toUpperCase() +
+                  userName.split(" ")[0].slice(1)
                 }!
                 `}
-              </h3>
+              </h4>
             ) : null}
           </Toolbar>
         </AppBar>
