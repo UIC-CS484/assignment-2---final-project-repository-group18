@@ -10,8 +10,8 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: "center",
   // color: theme.palette.text.secondary,
-  backgroundColor: "rgba(0,0,0,0.3)",
-  color: "lightgrey",
+  backgroundColor: "rgba(0,0,0,0.3) !important",
+  color: "lightgrey !important",
   height: "150px",
 }));
 
@@ -41,7 +41,7 @@ function HomePage() {
 
   return (
     <div>
-      <h2>Home Page</h2>
+      <h2>Home</h2>
       <div className="homepage_newsBlocks">
         <div class="newsContainer">
           <Grid container spacing={2}>

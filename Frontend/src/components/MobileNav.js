@@ -13,22 +13,22 @@ import { Box } from "@mui/system";
 import { Toolbar, Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
+  // root: {
+  //   flexGrow: 1,
+  // },
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    [theme.breakpoints.down("xs")]: {
-      flexGrow: 1,
-    },
-  },
-  headerOptions: {
-    display: "flex",
-    flex: 1,
-    justifyContent: "space-evenly",
-  },
+  // title: {
+  //   [theme.breakpoints.down("xs")]: {
+  //     flexGrow: 1,
+  //   },
+  // },
+  // headerOptions: {
+  //   display: "flex",
+  //   flex: 1,
+  //   justifyContent: "space-evenly",
+  // },
 }));
 
 const MobileNav = () => {

@@ -2,7 +2,7 @@
   text-align: center;
   color: lightgrey;
   background: rgba(65, 8, 102, 0.3);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .App-header {

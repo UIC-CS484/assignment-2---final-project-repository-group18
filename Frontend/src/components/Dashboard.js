@@ -13,10 +13,10 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
-  backgroundColor: "rgba(0,0,0,0.3)",
-  color: "lightgrey",
+  backgroundColor: "rgba(0,0,0,0.3) !important",
+  color: "lightgrey !important",
   // color: theme.palette.text.primary,
-  height: "150px",
+  minHeight: "150px",
 }));
 
 function Dashboard({ auth }) {
