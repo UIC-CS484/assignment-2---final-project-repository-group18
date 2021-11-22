@@ -16,6 +16,7 @@ Please add a .env file and copy and paste the below configuration in "Backend" f
 port=1337
 cookieMaxAge=3600000
 minPasswordLength=8
+maxPasswordLength=100
 secret="8812nkj12891nkfjhsdfk23"
 dbName="cryptoBaseDB"
 sessionsDb=sessions
