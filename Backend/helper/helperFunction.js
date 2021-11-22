@@ -12,6 +12,7 @@ schemaForPassword
 .has().uppercase(1)
 .has().lowercase(1)
 .has().symbols(1)
+.has().digits(1)
 .is().not().oneOf(listOfCommonPasswords)
 
 function checkIfAllDetailsPresent(req, callback){
