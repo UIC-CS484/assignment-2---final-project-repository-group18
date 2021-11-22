@@ -1,9 +1,9 @@
-const PASSWORDLENGTH = 8 // TODO Change the password Length from hardcoded to taken from config file
-const MAXPASSWORDLEN = 50
+const PASSWORDLENGTH =  process.env.minPasswordLength == null || process.env.minPasswordLength == "" ? 8 : parseInt(process.env.minPasswordLength) 
+const MAXPASSWORDLEN = process.env.maxPasswordLength == null || process.env.maxPasswordLength == "" ? 50 : parseInt(process.env.maxPasswordLength)
 const passwordVal = require("password-validator")
 
-const listOfCommonPasswords = ["Password@123", "Pass@12345", "Qwerty@123"]
 
+const listOfCommonPasswords = ["Password@123", "Pass@12345", "Qwerty@123"] 
 var schemaForPassword = new passwordVal()
 
 schemaForPassword
