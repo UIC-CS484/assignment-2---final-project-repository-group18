@@ -47,7 +47,7 @@ describe("Test for Passwords in the application" , ()=>{
 
     test("Positive test case for password Validation", done =>{
         try{
-            var correctPassword = "Password@1991"
+            var correctPassword = "Password1991"
             helperFunctions.validatePassword(correctPassword, function(err, data){
                 expect(data).toBe(true)
                 done()
