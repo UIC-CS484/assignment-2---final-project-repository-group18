@@ -39,10 +39,10 @@ jobs:
        id: heroku
        uses: jctaveras/heroku-deploy@v1.0.0 # use the latest version of the action
        with:
-         email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
-         api_key: ${{ secrets.HEROKU_API_KEY }} # your heroku api key
-         app_name: ${{ secrets.HEROKU_APP_NAME }} # you aplication name
-         dockerfile_path: 'Backend' # set the path to the folder where the Dockerfile is located
+         email: ${{secrets.HEROKU_EMAIL }} # your heroku email
+         api_key: ${{secrets.HEROKU_API_KEY}} # your heroku api key
+         app_name: ${{secrets.HEROKU_APP_NAME}} # you aplication name
+         dockerfile_path: './Backend' # set the path to the folder where the Dockerfile is located
          
 
       
