@@ -44,7 +44,7 @@ jobs:
           app_name: ${{ secrets.HEROKU_APP_NAME }} # you aplication name
           dockerfile_path: './Backend' # set the path to the folder wher the Dokerfile is located
           options: '' # Docker Build Options
-          formation: ''
+          formation: 'web'
   #   runs-on: ubuntu-latest
   #   steps:
   #     - uses: actions/checkout@v2
