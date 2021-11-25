@@ -135,8 +135,8 @@ app.use("/userCommentLike", userCommentLike)
 // Route to store the news Item to be fetched at later time
 app.use("/userNewsViewedData", userNewsStore)
 
-var server = app.listen(PORT, () => {
-  console.log("Server started at ", PORT);
+var server = app.listen(process.env.PORT, () => {
+  console.log("Server started at ", process.env.PORT);
 });
 
 process.on("SIGINT", () => {
