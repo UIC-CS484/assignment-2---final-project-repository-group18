@@ -33,6 +33,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
   #    - name: Checkout
   #      uses: actions/checkout@v2
   #    - name: Build, Push and Deploy to Heroku # set whatever name you want to this step
@@ -63,7 +64,7 @@ jobs:
           # (Optional, default: "./")
           # Dockerfile directory.
           # For example, if you have a Dockerfile in the root of your project, leave it as follows:
-          dockerfile_directory: "../"
+          dockerfile_directory: "./Backend/"
 
           # (Optional, default: "Dockerfile")
           # Dockerfile name.
