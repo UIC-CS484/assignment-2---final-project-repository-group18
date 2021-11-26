@@ -63,6 +63,23 @@ jobs:
         working-directory: ./Frontend
         run: |
           npm i -f
+  
+  deploy_front:
+    
+    needs: build_front
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, Push and Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name:  ${{ secrets.HEROKU_APP_FRONT_NAME }} #Must be unique in Heroku
+          heroku_email:  ${{ secrets.HEROKU_EMAIL_ID }}
+          usedocker: true
+          appdir: "Frontend"
+  
           
 
          
