@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   //baseURL: "http://localhost:1337",
-  baseURL: "http://swadbackendapp.herokuapp.com",
+  baseURL: "https://swadbackendapp.herokuapp.com",
 });
 
 instance.defaults.withCredentials = true;

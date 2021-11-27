@@ -110,7 +110,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: cookie_Max_Age_Time,
-      //secure: true
+      secure: true,
+      sameSite: 'none'
     },
     store : new sessionStore({db : sessionsDb + ".db", dir : "./database"})
   })
