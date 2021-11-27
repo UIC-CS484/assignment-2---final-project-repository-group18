@@ -14,4 +14,4 @@ RUN npm run-script build
 
 #EXPOSE 3000
 
-CMD ["serve", "-s build -p $PORT"]
+CMD serve -p $PORT -s build
