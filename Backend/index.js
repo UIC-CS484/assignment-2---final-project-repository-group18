@@ -97,7 +97,7 @@ app.use(
   cors({
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-    origin: ["https://cryptobasefrontend.herokuapp.com"],
+    origin: ["http://localhost:3000", "https://cryptobasefrontend.herokuapp.com"],
   })
 ); 
 
