@@ -97,7 +97,7 @@ app.use(
   cors({
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-    origin: ["http://localhost:3000", "https://cryptobasefrontend.herokuapp.com"],
+    origin: "*"//["http://localhost:3000", "https://cryptobasefrontend.herokuapp.com"],
   })
 ); 
 
@@ -110,7 +110,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: cookie_Max_Age_Time,
-      secure: true
+      //secure: true
     },
     store : new sessionStore({db : sessionsDb + ".db", dir : "./database"})
   })
