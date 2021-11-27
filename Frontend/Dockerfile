@@ -8,10 +8,11 @@ RUN npm install -f
 
 COPY . .
 
-RUN npm install -g serve
+#RUN npm install -g serve
 
-RUN npm run-script build
+#RUN npm run-script build
+RUN export PORT=$PORT
 
 #EXPOSE 3000
 
-CMD serve -p $PORT -s build
+CMD ["npm", "start"]
