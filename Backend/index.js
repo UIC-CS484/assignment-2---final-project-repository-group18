@@ -28,24 +28,6 @@ var sessionSecretKey = "secret"
 var sessionsDb = "sessions"
 
 
-// async () => {
-
-//   await require("dotenv").config()
-//   PORT = await process.env.port == "" || process.env.port == null ? PORT : process.env.port
-//   cookie_Max_Age_Time = await  process.env.cookieMaxAge == "" || process.env.cookieMaxAge == null ? cookie_Max_Age_Time : process.env.cookieMaxAge
-//    //console.log(cookie_Max_Age_Time)
-//   MINPASSWORDLENGTH = await process.env.minPasswordLength == "" || process.env.minPasswordLength == null ? MINPASSWORDLENGTH : process.env.minPasswordLength
-//   sessionSecretKey = await process.env.secret == "" ||  process.env.secret == null ? sessionSecretKey : process.env.secret
-//   sessionsDb = await process.env.sessionsDb == "" || process.env.sessionsDb == null ? sessionsDb : process.env.sessionsDb
-
-//   console.log("Configs used for server ---->")
-//   console.log("PORT -> " + PORT)
-//   console.log("Cookie Max Age -> " + cookie_Max_Age_Time)
-//   console.log("Minimum Password Length -> " + MINPASSWORDLENGTH )
-//   console.log("Session Key -> " + sessionSecretKey)
-//   console.log("sessionsDb -> " + sessionsDb)
-// }
-
  require("dotenv").config()
 
 // Replace the envrionement's default values used for generic configuration with that from the .env file
@@ -101,7 +83,7 @@ app.use(
   })
 ); 
 
-app.set('trust proxy', 1)
+
 app.use(
   sessionsObj({
    
@@ -109,13 +91,31 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: cookie_Max_Age_Time,
-      //secure: true,
-      //sameSite: 'none'
+      maxAge: cookie_Max_Age_Time
     },
     store : new sessionStore({db : sessionsDb + ".db", dir : "./database"})
   })
 );
+
+// Add the secure and sameSite paramaters if enviroment is PROD
+if (process.env.ENV == "PROD"){
+  console.log("Configuring Prod Environment .......")
+  app.set('trust proxy', 1)
+  app.use(
+    sessionsObj({
+     
+      secret: sessionSecretKey,
+      resave: false,
+      saveUninitialized: true,
+      cookie: {
+        maxAge: cookie_Max_Age_Time,
+        secure: true,
+        sameSite: 'none'
+      },
+      store : new sessionStore({db : sessionsDb + ".db", dir : "./database"})
+    })
+  );
+}
 
 require("./controller/passport").passportInit();
 
