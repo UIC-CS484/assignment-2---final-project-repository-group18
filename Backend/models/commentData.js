@@ -33,7 +33,7 @@ function getComments(newsURL, callbackfn){
 
 function addLikes(newsURL, userTableId, callbackfn){
     db.get("PRAGMA foreign_keys = ON")
-    sqlCheckIfLikesPresnt = "Select COUNT(*) as count from NewsLikes where newsLikes_userTableId = ?"
+    sqlCheckIfLikesPresnt = "Select COUNT(*) as count from NewsLikes where newsLikes_userTableId = ? and newsURL = ?"
     sqlParams = [userTableId]
    
     db.get(sqlCheckIfLikesPresnt, sqlParams, function(err, data){
