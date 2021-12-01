@@ -113,9 +113,9 @@ function getLikesForNews(newsURL, callbackfn){
     })
 }
 
-function getIfUserLikedNews(newsURL, callbackfn){
-    sqlGetIfUserLiked = "Select COUNT(*) as count, newsURL from NewsLikes where newsURL = ?"
-    sqlParams = [newsURL]
+function getIfUserLikedNews(newsURL, userTableId,callbackfn){
+    sqlGetIfUserLiked = "Select COUNT(*) as count, newsURL from NewsLikes where newsURL = ? and newsLikes_userTableId = ?"
+    sqlParams = [newsURL, userTableId]
 
     db.get(sqlGetIfUserLiked, sqlParams, function(err, data){
         if (err != null){

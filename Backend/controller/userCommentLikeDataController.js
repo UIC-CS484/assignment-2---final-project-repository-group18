@@ -104,7 +104,7 @@ function getUserLikeData(req, callback) {
         return callback(err, null)
     }
 
-    dbOperations.getIfUserLikedNews(req.body.newsURL, function(err, data) {
+    dbOperations.getIfUserLikedNews(req.body.newsURL, req.user.userTableId,function(err, data) {
         if (err != null){
             return callback(err, null)
         }
