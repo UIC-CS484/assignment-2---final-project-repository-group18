@@ -8,10 +8,25 @@ trajop2@uic.edu, awagad2@uic.edu , obusar2@uic.edu
 
 Akshat Wagadre, Olatunji Busari, Tejas Rajopadhye
 
-## About CryptoBase
+## About CryptoBase (Mission)
 
-Crypto
+CryptoBase is a social media application for cryptocurrencies. With the growing awareness of investments into financial investments like stocks, mutual funds, etc , not only has the returns on investments have increased but also difficulties in transparency about the investment. False news can hurt a novice investor badly. 
 
+Just like on any social media platform, on which the validity of the news is unfolded within secs/ minutes ( for example :- twitter) , we intend CryptoBase to do the same but with cryptocurrencies. Not only will it provide a social media experience , it will also help the user to analyse various cryptocurrencies at a touch of a button on the same platform. 
+
+### Webapp - https://cryptobasefrontend.herokuapp.com/
+
+
+## Roles in Project 
+
+### Akshat Wagadre 
+Role - Worked on the complete frontend design of the website in ReactJS. 
+
+### Olatungi Busari
+Role - Created the database schemas and added data manupulation models for CRUD and other operations related to database
+
+### Tejas Rajopadhye
+Role - Implemented Backend design in MVC and added security features along with validations needed
 
 
 ## Starting the Backend Server
@@ -65,7 +80,7 @@ $ npm start
 7. You can see your profile by clicking on the 'Profile' button on the navbar.
 8. Profile page allows you to update your name and delete your account by clicking the appropriate buttons.
 
-## Unit testing with JEST and plan ahead
+## Unit testing with JEST
 
 Details about unit testing for critical modules is given below, to run the unit test, please run the below command
 
@@ -107,15 +122,6 @@ For this test , data is updated for a user and the data which is updated is chec
 
 For this test , user's email ID is provided to be deleted from the data. The response from the function/ DB is checked for the test
 
-### Plan Ahead (Updated)
-
-Going ahead we expect to check and perform unit testing for
-
-1. Checking the Users Detail Inputs --> COMPLETED
-2. Checking the password hashing functionality --> COMPLETED
-3. Checking functions related to database operations --> COMPLETED
-4. Authentication and Authorisation Tests
-
 ## Structure of project
 
 The project is divided into 3 parts,
@@ -126,10 +132,10 @@ The project is divided into 3 parts,
 
 Frontend is made in React JS and backend in NodeJS ( with Express.js ) .Both frontend and backend server need to be started. Before starting both frontend and backend servers please install the appropriate dependencies.
 
-1. Dependencies for Backend - NodeJS, npm and packages inside the package.json file
+1. Dependencies for Backend - NodeJS, npm and packages inside the package.json file , .env file
 2. Dependencies for Frontend - ReactJS, React Context API, MaterialUI
 
-Tools and IDEs - Visual Studio Code, Postman, SQLiteStudio
+## Tools and IDEs - Visual Studio Code, Postman, SQLiteStudio
 
 ## Storage of User Details
 
@@ -178,3 +184,5 @@ This API is used to fetch the historical market data of crypto currencies which 
 
 The library used here is kaktana-react-lightweight-charts which is a modified version of the standard lightweight charts provided by tradingview, to work with react. This library makes use of price and time data to plot various types of charts like line chart, candlestick chart, area series chart etc. We have used the area series chart using the data fetched from coingecko's API for a given crypto.
 The chart displayed here gives us important information about the crypto currencies' price over a span of 500 days. Users can see the chart to understand how the price has moved in the past days, perform technical analysis to make investment decisions in that crypto.
+
+
