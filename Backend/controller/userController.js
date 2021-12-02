@@ -40,29 +40,38 @@ module.exports = {
                 return callback(err, null)
             }
 
-            dbOperations.checkUserId(dataObj.emailId, function(err, data){
+            helper.validatePassword(dataObj.password, function(err, isValid){
                 if (err != null){
                     return callback(err, null)
                 }
-                if (data != null){
-                    if (data == false){
-                        //console.log("User Id is not unique")
-                        return callback("User Email Id Already Exists", null)
-                    }else if(data == true){
-                       // Check for the password policy 
-                       // Then call the db function to insert the user credentials
-                       dbOperations.insertNewUser(dataObj, function(err, data){
-                           if (err != null){
-                               return callback(err, null)
-                           }
-                           if (data != null){
-                               if (data == true){
-                                   return callback(null, true)
-                               }
-                           }
-                       })
-                    }
+
+                if (isValid == true){
+                    dbOperations.checkUserId(dataObj.emailId, function(err, data){
+                        if (err != null){
+                            return callback(err, null)
+                        }
+                        if (data != null){
+                            if (data == false){
+                                //console.log("User Id is not unique")
+                                return callback("User Email Id Already Exists", null)
+                            }else if(data == true){
+                               // Check for the password policy 
+                               // Then call the db function to insert the user credentials
+                               dbOperations.insertNewUser(dataObj, function(err, data){
+                                   if (err != null){
+                                       return callback(err, null)
+                                   }
+                                   if (data != null){
+                                       if (data == true){
+                                           return callback(null, true)
+                                       }
+                                   }
+                               })
+                            }
+                        }
+                    })
                 }
+
             })
         })
        

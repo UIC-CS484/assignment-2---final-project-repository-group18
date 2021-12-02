@@ -45,4 +45,83 @@ describe("Test for Passwords in the application" , ()=>{
        
     })
 
+    test("Positive test case for password Validation", done =>{
+        try{
+            var correctPassword = "Password@1991"
+            helperFunctions.validatePassword(correctPassword, function(err, data){
+                expect(data).toBe(true)
+                done()
+            })
+        }catch(err){
+            done(err)
+        }
+    })
+
+    test("Negative test case for password Validation --> No Symbol/ Special Character", done =>{
+        try{
+            // no Special Character
+            var correctPassword = "Password1991"
+            helperFunctions.validatePassword(correctPassword, function(err, data){
+                expect(data).toBe(false)
+                done()
+            })
+        }catch(err){
+            done(err)
+        }
+    })
+
+    test("Negative test case for password Validation --> No UpperCase Character", done =>{
+        try{
+            // no Special Character
+            var correctPassword = "password@1991"
+            helperFunctions.validatePassword(correctPassword, function(err, data){
+                expect(data).toBe(false)
+                done()
+            })
+        }catch(err){
+            done(err)
+        }
+    })
+
+    test("Negative test case for password Validation --> No lowercase Character", done =>{
+        try{
+            // no Special Character
+            var correctPassword = "PASSWORD@1991"
+            helperFunctions.validatePassword(correctPassword, function(err, data){
+                expect(data).toBe(false)
+                done()
+            })
+        }catch(err){
+            done(err)
+        }
+    })
+
+    test("Negative test case for password Validation --> No Digit", done =>{
+        try{
+            // no Special Character
+            var correctPassword = "Password@"
+            helperFunctions.validatePassword(correctPassword, function(err, data){
+                expect(data).toBe(false)
+                done()
+            })
+        }catch(err){
+            done(err)
+        }
+    })
+
+    test("Negative test case for password Validation --> Length Greater than 100", done =>{
+        try{
+            // no Special Character
+            var correctPassword = "spfsdfkjsdfkjsdfjsdkfjsdjkfhsfdngbsdhjgbsdjhkfkjhfsdbjhsdfbjhvbsjdfhbvbdfjhvjsdfhvbjhvdbjdfvbhbjhfvjh"
+            helperFunctions.validatePassword(correctPassword, function(err, data){
+                expect(data).toBe(false)
+                done()
+            })
+        }catch(err){
+            done(err)
+        }
+    })
+
+    
+
 })
