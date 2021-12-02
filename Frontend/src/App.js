@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./App.css";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
   Link,
@@ -54,7 +54,7 @@ function App() {
   };
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <BrowserRouter>
         <div className="App">
           <Navbar />
           <Switch>
@@ -88,7 +88,7 @@ function App() {
             )}
           </Switch>
         </div>
-      </Router>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
