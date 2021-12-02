@@ -10,7 +10,7 @@ const CryptoChart = (props) => {
     props.location.state.coinName
   );
 
-  // console.log(props.location.state);
+  console.log(currentCoinName);
 
   const state = {
     options: {

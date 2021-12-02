@@ -11,7 +11,7 @@ export default function SwitchChart({ favourites, setCoin }) {
   };
   const handleClose = (fav) => {
     // console.log(fav);
-    if (typeof fav === "string") setCoin(fav);
+    if (typeof fav.name === "string") setCoin(fav.id);
     setAnchorEl(null);
   };
 
@@ -23,8 +23,11 @@ export default function SwitchChart({ favourites, setCoin }) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        variant="contained"
+        color="secondary"
+        style={{ marginTop: 20 }}
       >
-        Select Crypto
+        Change Crypto
       </Button>
       <Menu
         id="demo-positioned-menu"
@@ -41,9 +44,11 @@ export default function SwitchChart({ favourites, setCoin }) {
           horizontal: "left",
         }}
       >
-        {favourites?.map((fav) => (
-          <MenuItem onClick={() => handleClose(fav)}>{fav}</MenuItem>
-        ))}
+        <div class="coin_selection" style={{ display: "flex" }}>
+          {favourites?.map((fav) => (
+            <MenuItem onClick={() => handleClose(fav)}>{fav.name}</MenuItem>
+          ))}
+        </div>
       </Menu>
     </div>
   );

@@ -15,31 +15,34 @@ function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    axios
-      .post("/createUser", {
-        username: data.get("name"),
-        emailId: data.get("email"),
-        dob: value ? value.toString() : "",
-        password: data.get("password"),
-      })
-      .then(function (response) {
-        console.log(response);
-        if (
-          response.data.message === "Email ID is empty " ||
-          response.data.message === "User Name is empty"
-        )
-          setError("Please fill all required fields!");
-        else if (response.data.message === "Password Length less than 8")
-          setError("Password should be atleast 8 characters long.");
-        else {
-          setError(null);
-          window.location.href = "/signin";
-        }
-        console.log(error);
-      })
-      .catch(function (error) {
-        console.log(error.response);
-      });
+    // value.toString() : ""
+    if (value === null) setError("Please fill all required fields!");
+    else
+      axios
+        .post("/createUser", {
+          username: data.get("name"),
+          emailId: data.get("email"),
+          dob: value.toString(),
+          password: data.get("password"),
+        })
+        .then(function (response) {
+          console.log(response);
+          if (
+            response.data.message === "Email ID is empty " ||
+            response.data.message === "User Name is empty"
+          )
+            setError("Please fill all required fields!");
+          else if (response.data.message === "Password Length less than 8")
+            setError("Password should be atleast 8 characters long.");
+          else {
+            setError(null);
+            window.location.href = "/signin";
+          }
+          console.log(error);
+        })
+        .catch(function (error) {
+          console.log(error.response);
+        });
     // console.log(axios);
   };
 
@@ -81,13 +84,13 @@ function SignUp() {
             <LocalizationProvider dateAdapter={DateAdapter}>
               <DatePicker
                 required
-                label="Date of Birth *"
+                label="Date of Birth"
                 name="dob"
                 value={value}
                 onChange={(newValue) => {
                   setValue(newValue);
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField {...params} required />}
               />
             </LocalizationProvider>
           </div>
