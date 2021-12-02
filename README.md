@@ -8,6 +8,12 @@ trajop2@uic.edu, awagad2@uic.edu , obusar2@uic.edu
 
 Akshat Wagadre, Olatunji Busari, Tejas Rajopadhye
 
+## About CryptoBase
+
+Crypto
+
+
+
 ## Starting the Backend Server
 
 Please add a .env file and copy and paste the below configuration in "Backend" folder
