@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { myContext } from "../context/Context";
 import axios from "../axios";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -23,9 +24,14 @@ const Profile = () => {
   // Thu Nov 04 2021 22:56:14 GMT-0500 (Central Daylight Time)
 
   useEffect(() => {
+    // axios
+    //   .get("/cryptoUserDetails/get")
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
     axios
       .get("/dashboard")
       .then(function (response) {
+        console.log(response);
         const temp = response.data.dob.split(" ");
         response.data.dateTime = response.data.dob;
         response.data.dob = temp[1] + " " + temp[2] + " " + temp[3];
@@ -73,6 +79,11 @@ const Profile = () => {
   return (
     <div className="profile">
       <ThemeProvider theme={theme}>
+        <Link to="/tickers" style={{ textDecoration: "none" }}>
+          <Button color="primary" variant="outlined">
+            Set Favourite Cryptos
+          </Button>
+        </Link>
         <h3>User Info:</h3>
         {updateResponse ? (
           <h4 style={{ color: "#339b30" }}>Name updated!</h4>
