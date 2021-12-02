@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN export ENV=PROD
+
 EXPOSE 1337
 
 
