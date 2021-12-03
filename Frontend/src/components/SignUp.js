@@ -11,6 +11,7 @@ import axios from "../axios";
 function SignUp() {
   const [value, setValue] = React.useState(null);
   const [error, setError] = React.useState(null);
+  const [passwordError, setPasswordError] = React.useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +35,10 @@ function SignUp() {
             setError("Please fill all required fields!");
           else if (response.data.message === "Password Length less than 8")
             setError("Password should be atleast 8 characters long.");
-          else {
+          else if (Array.isArray(response.data.message)) {
+            setPasswordError(response.data.message);
+            console.log(response.data.message);
+          } else {
             setError(null);
             window.location.href = "/signin";
           }
@@ -120,6 +124,11 @@ function SignUp() {
               label="Remember me"
             /> */}
           {error ? <p style={{ color: "red" }}>{error}</p> : ""}
+          {Array.isArray(passwordError)
+            ? passwordError?.map((err) => (
+                <p style={{ color: "red" }}>{err.message}</p>
+              ))
+            : ""}
           <Button
             type="submit"
             fullWidth

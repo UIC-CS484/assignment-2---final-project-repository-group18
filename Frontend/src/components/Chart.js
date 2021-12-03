@@ -7,7 +7,7 @@ import SwitchChart from "./SwitchChart";
 const CryptoChart = (props) => {
   const [marketData, setMarketData] = useState(null);
   const [currentCoinName, setCurrentCoinName] = useState(
-    props.location.state.coinName
+    props.location.state.coinId
   );
 
   console.log(currentCoinName);
