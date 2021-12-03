@@ -29,6 +29,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function HomePage() {
   const [homeNews, setHomeNews] = useState(null);
+  console.log("test", process.env);
 
   useEffect(() => {
     mediastack

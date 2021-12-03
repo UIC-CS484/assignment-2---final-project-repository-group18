@@ -24,7 +24,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 // If user got no favourites, redirect to select favourites page
 function Dashboard() {
-  // console.log("test", process.env.MEDIASTACK_API_KEY);
   const history = useHistory();
   const [favNews, setFavNews] = useState([]);
   const [favourites, setFavourites] = useState([]);

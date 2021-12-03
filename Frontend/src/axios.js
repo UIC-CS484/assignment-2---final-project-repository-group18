@@ -1,9 +1,8 @@
 import axios from "axios";
 
 let instance;
-if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+if (!process.env.REACT_APP_ENV || process.env.REACT_APP_ENV === "development") {
   // dev code
-  console.log(process.env.NODE_ENV)
   instance = axios.create({
     baseURL: "http://localhost:1337",
   });

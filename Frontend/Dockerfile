@@ -13,7 +13,7 @@ COPY . .
 #RUN npm run-script build
 RUN export PORT=$PORT
 
-RUN export NODE_ENV=PROD
+RUN export REACT_APP_ENV=prod
 
 #EXPOSE 3000
 
