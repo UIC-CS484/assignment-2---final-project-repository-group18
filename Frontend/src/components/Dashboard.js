@@ -10,6 +10,7 @@ import NewsModal from "./NewsModal";
 import defaultAxios from "axios";
 import Likes from "./Likes";
 import { Button } from "@mui/material";
+require("dotenv").config();
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -23,6 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 // If user got no favourites, redirect to select favourites page
 function Dashboard() {
+  // console.log("test", process.env.MEDIASTACK_API_KEY);
   const history = useHistory();
   const [favNews, setFavNews] = useState([]);
   const [favourites, setFavourites] = useState([]);
@@ -40,7 +42,7 @@ function Dashboard() {
           // console.log(fav);
           urls.push(
             defaultAxios.get(
-              `http://api.mediastack.com/v1/news?access_key=ae0baf702b65b31c4bc116657c2d6a17&keywords=${fav.name}&limit=6&countries=us`
+              `http://api.mediastack.com/v1/news?access_key=${process.env.REACT_APP_MEDIASTACK_API_KEY}&keywords=${fav.name}&limit=6&countries=us`
             )
           );
         });

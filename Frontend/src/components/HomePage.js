@@ -4,6 +4,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { mediastack } from "../axios";
 import "./styles.css";
+require("dotenv").config();
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
