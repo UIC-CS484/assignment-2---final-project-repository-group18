@@ -94,7 +94,7 @@ const SignIn = () => {
                 </Link>
               </Grid> */}
             <Grid item style={{ margin: "auto" }}>
-              <Link to="/signup" variant="body2">
+              <Link to="/signup" variant="body2" style={{ color: "#8888e5" }}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

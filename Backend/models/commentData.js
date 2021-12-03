@@ -36,19 +36,11 @@ function getComments(newsURL, callbackfn) {
   });
 }
 
-function addLikes(newsURL, userTableId, callbackfn){
-    db.get("PRAGMA foreign_keys = ON")
-    sqlCheckIfLikesPresnt = "Select COUNT(*) as count from NewsLikes where newsLikes_userTableId = ? and newsURL = ?"
-    sqlParams = [userTableId]
-   
-    db.get(sqlCheckIfLikesPresnt, sqlParams, function(err, data){
-        if (err != null){
-            return callbackfn(err, null)
-        }
-        
-        if (data.count == 0){
-            sqlInsertLikesData = "INSERT INTO NewsLikes(newsURL, newsLikes_userTableId)"
-            sqlInsertLikesData  += "VALUES(?,?)"
+function addLikes(newsURL, userTableId, callbackfn) {
+  db.get("PRAGMA foreign_keys = ON");
+  sqlCheckIfLikesPresnt =
+    "Select COUNT(*) as count from NewsLikes where newsLikes_userTableId = ? and newsURL = ?";
+  sqlParams = [userTableId];
 
   db.get(sqlCheckIfLikesPresnt, sqlParams, function (err, data) {
     if (err != null) {
@@ -112,9 +104,10 @@ function addLikes(newsURL, userTableId, callbackfn){
   // })
 }
 
-function getIfUserLikedNews(newsURL, userTableId,callbackfn){
-    sqlGetIfUserLiked = "Select COUNT(*) as count, newsURL from NewsLikes where newsURL = ? and newsLikes_userTableId = ?"
-    sqlParams = [newsURL, userTableId]
+function getLikesForNews(newsURL, callbackfn) {
+  sqlGetLikesForNews =
+    "Select COUNT(*) as count from NewsLikes where newsURL = ?";
+  sqlParams = [newsURL];
 
   db.get(sqlGetLikesForNews, sqlParams, function (err, data) {
     if (err != null) {
@@ -143,6 +136,7 @@ function getIfUserLikedNews(newsURL, userTableId, callbackfn) {
     }
   });
 }
+
 module.exports = {
   setComment,
   getComments,
